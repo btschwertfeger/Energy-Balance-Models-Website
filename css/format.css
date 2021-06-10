@@ -18,3 +18,9 @@ a:hover {
     margin:auto;
     font-size:18;
 }
+
+#progress_bar {
+    width: 0%;
+    height: 10px;
+    background-color: green;
+}
