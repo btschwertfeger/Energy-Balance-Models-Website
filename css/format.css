@@ -18,9 +18,6 @@ a:hover {
     margin:auto;
     font-size:18;
 }
-
-#progress_bar {
-    width: 0%;
-    height: 10px;
-    background-color: green;
+.complex_ebm_input_field{
+    width: 80px;
 }

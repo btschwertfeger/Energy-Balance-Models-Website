@@ -158,14 +158,23 @@ if (typeof module.exports === "object") {
   module.exports = linear;
 }
 },{}],2:[function(require,module,exports){
-// const {
-//     fractionDependencies,
-//     sec
-// } = require("mathjs");
+/*
+########################################
+## @author Benjamin Thomas Schwertfeger
+############
+*/
+
+// ************
+// This will be in main_bundle.js (->watchify main.js -o main_bundle.js)
+// ************
+
+
 const {
-    typeOf
+    inv,
+    multiply,
+    transpose
 } = require("mathjs");
-const math = require("mathjs");
+// const math = require("mathjs");
 const linear = require("/Users/benjamin/js_modules/gauss-jordan.js");
 
 /*###################################################################################################################################################*/
@@ -176,6 +185,7 @@ const linear = require("/Users/benjamin/js_modules/gauss-jordan.js");
 /*###################################################################################################################################################*/
 /*####################################################### FUNCTIONS AND SETTINGS ####################################################################*/
 
+// Colors for the simple ebm temperature plot
 window.COLORS = ['blue', 'black', 'orange', 'green', 'Chocolate', 'Crimson', 'DarkCyan', 'DarkGoldenRod', 'Fuchsia', 'Indigo', 'yellow'];
 
 // returns array from start to end with steps 
@@ -421,7 +431,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
             }
         }
     }
-    let invMat = math.inv(BIdiffop);
+    let invMat = inv(BIdiffop);
 
     for (let i = 0; i < parseInt(dur * nt); i++) {
         //python: a = aw*(T>0)+ai*(T<0) # WE15, eq.4 
@@ -461,7 +471,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         // T(n+1) = T(n) + dt*(dT(n+1)/dt), with c_w*dT/dt=(C-B*T+diffop*T)
         // -> T(n+1) = T(n) + dt/cw*[C-B*T(n+1)+diff_op*T(n+1)]
         // -> T(n+1) = inv[1+dt/cw*(1+B-diff_op)]*(T(n)+dt/cw*C)
-        T = math.multiply(invMat, T0)
+        T = multiply(invMat, T0)
         allT[i] = allT[i].map(function (entry, index) {
             return T[index]
         })
@@ -831,13 +841,9 @@ for (let i = 0; i < window.xLatitudes.length; i++) {
     document.getElementById('xlatitudes-container').appendChild(option);
 }
 
-// window.updateTYPlot = updateTYPlot;
-
 /* global stuff */
 window.onload = window.plot_default_tebm_chart();
 window.added_tebm_graphs = 0;
-// window.plot_default_tebm_chart = plot_default_tebm_chart;
-// window.doTEBM = doTEBM;
 window.default_TEBM_input = {
     D: 0.6,
     A: 193,
@@ -909,11 +915,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
     a0 = 0.7, a2 = 0.1, ai = 0.4, Fb = 4, k = 2, Lf = 9.5, cg = 0.01,
     tau = 1e-5, winter = 26, summer = 76, years = 30) {
 
-    /* progressbar */
-    // let progressbar = document.getElementById('progress_bar');
-    // progressbar.style.width = "0%";
-    // progressbar.style.display = "";
-    /*  */
+
     D = parseFloat(D);
     S1 = parseInt(S1);
     A = parseInt(A);
@@ -1086,7 +1088,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
     for (let i = 0; i < S___2.length; i++) {
         S___2[i] = S1cos2pity;
     }
-    S___2 = math.transpose(S___2);
+    S___2 = transpose(S___2);
 
     // np.tile(x,[int(nt),1])
     let S___3 = new Array(parseInt(nt));
@@ -1303,16 +1305,13 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
             for (let entry = 0; entry < absolutResult.length; entry++) {
                 Tg[entry] = absolutResult[entry];
             }
-            // console.log("Tg after: " + Tg);
+
             if (i == parseInt(nt) - 1) {
-                console.log("YEAR: " + year);
-                let progress = year / dur * 100;
-                console.log(progress + "%");
-                let progressbar = window.document.getElementById('progress_bar');
-                progressbar.style.width = (Math.round(progress) + "%").toString();
+                console.log("Year: " + Number(year + 1) + " (" + Math.round(year / dur * 100) + "%)");
             }
         }
     }
+
 
     // #output only converged, final year
     let tfin = linespace(0, 1, 100);
@@ -1392,8 +1391,6 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
 ################### PLOTTING FUNCTIONS FOR COMPLEX EBM
 */
 
-
-
 function complex_ebm_plot() {
     let x = window.complex_ebm_result['x'];
     let xi = window.complex_ebm_result['xi'];
@@ -1404,80 +1401,71 @@ function complex_ebm_plot() {
     let winter = window.complex_ebm_result['winter']
     let summer = window.complex_ebm_result['summer']
 
+    const LAT_LABELS_contour = x.map(function (entry) {
+        return Math.asin(entry) * (180 / Math.PI);
+    });
+
     /* a) SEASONAL ENTHALPY PLOT FINAL YEAR*/
-    let data_seas_enthalpy = [{
-        z: Efin,
-        x: tfin,
-        y: x,
-        type: 'contour',
-        // colorbar: {
-        //     title: '\(E(Jm^{-1})\)',
-        //     titleside: 'right',
-        //     titlefont: {
-        //         size: 14,
-        //         family: 'Helvetica'
-        //     }
-        // }
-    }];
-
-    let layout_seas_enthalpy = {
-        title: 'a) \(E(Jm^{-1})\)',
-        xaxis: {
-            title: {
-                text: 't (final year)',
+    Plotly.newPlot('complex_ebm_seas_enthalpy_plot',
+        [{
+            z: Efin,
+            x: tfin,
+            y: x, //LAT_LABELS_contour,
+            type: 'contour',
+            // colorbar: {
+            //     title: '$E(Jm^{-1})$',
+            //     titleside: 'right',
+            //     titlefont: {
+            //         size: 14,
+            //     }
+            // }
+        }], {
+            title: '$E(Jm^{-1})$',
+            xaxis: {
+                title: {
+                    text: 't (final year)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
             },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
-        },
-        yaxis: {
-            title: {
-                text: 'x',
-            },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
-        }
-    };
-
-    Plotly.newPlot('complex_ebm_seas_enthalpy_plot', data_seas_enthalpy, layout_seas_enthalpy);
+            yaxis: {
+                title: {
+                    text: 'Latitude (x)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
+            }
+        });
 
     /* b) SEASONAL Temperature PLOT FINAL YEAR*/
-    let data_seas_T = [{
-        z: Tfin,
-        x: tfin,
-        y: x,
-        type: 'contour',
-        // colorbar: {
-        //     title: 'Temperature in °C',
-        //     titleside: 'right',
-        //     titlefont: {
-        //         size: 14,
-        //         family: 'Helvetica'
-        //     }
-        // }
-    }];
-
-    let layou_seas_T = {
-        title: 'b) Temperature (°C)',
-        xaxis: {
-            title: {
-                text: 't (final year)',
+    Plotly.newPlot('complex_ebm_seas_T_plot',
+        [{
+            z: Tfin,
+            x: tfin,
+            y: x, // LAT_LABELS_contour
+            type: 'contour',
+        }], {
+            title: 'b) Temperature (°C)',
+            xaxis: {
+                title: {
+                    text: 't (final year)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
             },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
-        },
-        yaxis: {
-            title: {
-                text: 'x',
-            },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
+            yaxis: {
+                title: {
+                    text: 'Latitude (x)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
+            }
         }
-    };
-    Plotly.newPlot('complex_ebm_seas_T_plot', data_seas_T, layou_seas_T);
+    );
 
     /* c) SEASONAL SEA ICE THICKNESS PLOT FINAL YEAR*/
     let hfin = new Array(Efin.length);
@@ -1488,62 +1476,40 @@ function complex_ebm_plot() {
         }
     }
 
-
-    // get maximal value for contour scale
-    // let maxContour = Math.max.apply(Math, hfin[0]);
-    // for (let row = 0; row < hfin.length; row++) {
-    //     let val = Math.max.apply(Math, hfin[row]);
-    //     maxContour = (maxContour < val) ? val : maxContour;
-    // }
-    let data_seas_SeaIce = [{
-        z: hfin,
-        x: tfin,
-        y: x,
-        type: 'contour',
-        // contours: {
-        //     start: 1,
-        //     end: maxContour,
-        //     size: 1
-        // }
-        colorscale: [
-            [0, 'rgb(255,255,255)'],
-            [0.25, 'rgb(166,206,227)'],
-            [0.45, 'rgb(178,223,138)'],
-            [0.65, 'rgb(65,105,225)'],
-            [0.85, 'rgb(0,0,205)'],
-            [1, 'rgb(0,0,255']
-        ]
-
-        // colorbar: {
-        //     title: 'h(m)',
-        //     titleside: 'right',
-        //     titlefont: {
-        //         size: 14,
-        //         family: 'Helvetica'
-        //     }
-        // }
-    }];
-    // THERE SHOULD BE AN OTHER LINE TO SHOW THE SEA ICE BORDER
-    let data_seas_SeaIce_layout = {
-        title: 'c) Sea ice thickness h(m)',
-        xaxis: {
-            title: {
-                text: 't (final year)',
+    Plotly.newPlot('complex_ebm_seas_SeaIce_plot',
+        [{
+            z: hfin,
+            x: tfin,
+            y: x, // LAT_LABELS_contour
+            type: 'contour',
+            colorscale: [
+                [0, 'rgb(255,255,255)'],
+                [0.25, 'rgb(166,206,227)'],
+                [0.45, 'rgb(65,105,225)'],
+                [0.65, 'rgb(100,149,237)'],
+                [0.85, 'rgb(0,0,205)'],
+                [1, 'rgb(0,0,255']
+            ]
+        }], {
+            title: 'c) Sea ice thickness $h(m)$',
+            xaxis: {
+                title: {
+                    text: 't (final year)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
             },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
-        },
-        yaxis: {
-            title: {
-                text: 'x',
-            },
-            linecolor: 'black',
-            linewidth: 1,
-            mirror: true
+            yaxis: {
+                title: {
+                    text: 'Latitude (x)',
+                },
+                linecolor: 'black',
+                linewidth: 1,
+                mirror: true
+            }
         }
-    };
-    Plotly.newPlot('complex_ebm_seas_SeaIce_plot', data_seas_SeaIce, data_seas_SeaIce_layout);
+    );
 
 
     // ##################################################################################################
@@ -1551,7 +1517,7 @@ function complex_ebm_plot() {
     document.getElementById('complex_tsurf_graph').remove();
     document.getElementById('complex_tsurf_graph_container').innerHTML = '<canvas id="complex_tsurf_graph"></canvas>';
 
-    const LABELS = x.map(function (entry) {
+    const LAT_LABELS = x.map(function (entry) {
         return Math.asin(entry) * (180 / Math.PI);
     });
 
@@ -1564,34 +1530,19 @@ function complex_ebm_plot() {
         Twinter[row] = Tfin[row][winter];
     }
 
-    let zeroLine = new Array(Tfin.length);
-    for (let entry = 0; entry < zeroLine; entry++) {
-        zeroLine[entry] = 1;
-        zeroLine[entry] = 0;
-    }
-
     let DATASETS_T = [{
-            label: 'summer',
+            label: 'summer (T in °C)',
             data: Tsummer,
             fill: false,
             borderColor: 'rgb(255,0,0)',
             pointRadius: 0
         },
         {
-            label: 'winter',
+            label: 'winter (T in °C)',
             data: Twinter,
             fill: false,
             borderColor: 'rgb(0,0,205)',
             pointRadius: 0
-        },
-        {
-            data: zeroLine,
-            label: 'zeroLine',
-            fill: false,
-            borderWidth: 2,
-            borderColor: 'black',
-            pointRadius: 0,
-
         }
     ];
 
@@ -1599,7 +1550,7 @@ function complex_ebm_plot() {
     let complex_tsurf_chart = new Chart(ctx_tsurf, {
         type: 'line',
         data: {
-            labels: LABELS,
+            labels: LAT_LABELS,
             datasets: DATASETS_T,
         },
         options: {
@@ -1608,7 +1559,7 @@ function complex_ebm_plot() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Surface Temperature',
+                    text: 'd) Surface Temperature (final year)',
                     font: {
                         Family: 'Helvetica',
                         size: 18
@@ -1616,12 +1567,6 @@ function complex_ebm_plot() {
                 },
                 legend: {
                     position: 'top',
-                    labels: {
-                        filter: function (item, chart) {
-                            // Logic to remove a particular legend item goes here
-                            return !item.text.includes('zerozeroLine');
-                        }
-                    }
                 }
             },
             scales: {
@@ -1637,7 +1582,7 @@ function complex_ebm_plot() {
                     },
                     ticks: {
                         callback: function (value, index, values) {
-                            return Math.round(LABELS[index]);
+                            return Math.round(LAT_LABELS[index]);
                         }
                     }
                 },
@@ -1671,6 +1616,7 @@ function complex_ebm_plot() {
         }
     });
 
+    // ###############################################################
     /* e) ICE THICKNESS h when 0.7 < x < 1 FINAL YEAR */
     document.getElementById('complex_iceThickness_graph').remove();
     document.getElementById('complex_iceThickness_graph_container').innerHTML = '<canvas id="complex_iceThickness_graph"></canvas>';
@@ -1694,25 +1640,20 @@ function complex_ebm_plot() {
         }
     }
     let DATASETS_iceThickness = [{
-            label: 'summer',
+            label: 'summer (m)',
             data: IceThicknesssummer,
             fill: false,
             borderColor: 'rgb(255,0,0)',
             pointRadius: 0
         },
         {
-            label: 'winter',
+            label: 'winter (m)',
             data: IceThicknesswinter,
             fill: false,
             borderColor: 'rgb(0,0,205)',
             pointRadius: 0
         },
-        // {
-        //     data: zeroLineGEq07,
-        //     fill: false,
-        //     borderColor: 'rgb(0,0,0)',
-        //     pointRadius: 0
-        // }
+
     ];
 
     let ctx_iceThickness = document.getElementById('complex_iceThickness_graph');
@@ -1728,7 +1669,7 @@ function complex_ebm_plot() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Ice thickness h when 0.7 < 1',
+                    text: 'e) Ice thickness 45 <= lat <= 84 (final year)',
                     font: {
                         Family: 'Helvetica',
                         size: 18
@@ -1780,7 +1721,7 @@ function complex_ebm_plot() {
 
         }
     });
-
+    // ###############################################################
     /* f) SEASONAL CYCLE OF ICE THICKNESS AT THE POLE H_p */
     document.getElementById('complex_seasCycleIceThickness_graph').remove();
     document.getElementById('complex_seasCycleIceThickness_graph_container').innerHTML = '<canvas id="complex_seasCycleIceThickness_graph"></canvas>';
@@ -1795,7 +1736,7 @@ function complex_ebm_plot() {
         LABEL_X_year[entry] = entry / 100
     }
     let DATASETS_seas_iceThickness = [{
-        label: 'ice tickness at pole',
+        label: 'ice tickness at pole (m)',
         data: seas_iceThicknesAtPole,
         fill: false,
         borderColor: 'rgb(0,0,0)',
@@ -1811,10 +1752,11 @@ function complex_ebm_plot() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: 'Seasonal ice thickness at the pole',
+                    text: 'f) Seasonal ice thickness at the pole',
                     font: {
                         Family: 'Helvetica',
                         size: 18
@@ -1870,32 +1812,39 @@ function complex_ebm_plot() {
 
         }
     });
-
+    // ###############################################################
     /* g) SEASONAL CYCLE OF THE LAT OF SEA ICE EDGE */
     document.getElementById('complex_seasCycleIceEdge_graph').remove();
     document.getElementById('complex_seasCycleIceEdge_graph_container').innerHTML = '<canvas id="complex_seasCycleIceEdge_graph"></canvas>';
 
+    let iceEdge = new Array(xi.length);
+    for (let entry = 0; entry < iceEdge.length; entry++) {
+        iceEdge[entry] = Math.round(Math.asin(xi[entry]) * (180 / Math.PI));
+    }
     let DATASETS_seas_iceEdge = [{
-        label: 'summer',
-        data: xi, //tfin,
+        label: 'Latitude',
+        data: iceEdge, //xi, //tfin,
         fill: false,
         borderColor: 'rgb(0,0,255)',
         pointRadius: 0
     }];
 
+
+
     let ctx_seas_iceEdge = document.getElementById('complex_seasCycleIceEdge_graph');
     let complex_iceEdge_chart = new Chart(ctx_seas_iceEdge, {
         type: 'line',
         data: {
-            labels: LABELS, // LABELS
+            labels: LABEL_X_year, //xi, //LABELS, // LABELS
             datasets: DATASETS_seas_iceEdge,
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: 'Seasonal cycle of the ice edge on latitude',
+                    text: 'g) Seasonal cycle of the ice edge',
                     font: {
                         Family: 'Helvetica',
                         size: 18
@@ -1934,7 +1883,12 @@ function complex_ebm_plot() {
                             family: 'Helvetica',
                             size: 16
                         }
-                    }
+                    },
+                    // ticks: {
+                    //     callback: function (value, index, values) {
+                    //         return Math.round(custom_y[index]);
+                    //     }
+                    // }
                 }
             },
             animations: {
@@ -1944,7 +1898,7 @@ function complex_ebm_plot() {
                     loop: (ctx) => ctx.activate
                 }
             },
-            hoverRadius: 12,
+            hoverRadius: 6,
             hoverBackgroundColor: 'yellow',
             interaction: {
                 mode: 'nearest',
@@ -1954,7 +1908,6 @@ function complex_ebm_plot() {
 
         }
     });
-
 }
 
 
@@ -1965,15 +1918,26 @@ function complex_ebm_plot() {
 ################### RUN COMPLEX EBM
 */
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-window.doTheComplexThing = function doTheComplexThing(complex_ebm_input = window.default_complex_ebm_input) {
+window.doTheComplexThing = async function doTheComplexThing(complex_ebm_input = window.default_complex_ebm_input) {
+    let progress = document.getElementById('complex_is_Running');
+    progress.style.display = "";
+    document.getElementById('complex-ebm-graph-container').style.display = "";
+    document.getElementById('complex_ebm_placeholder').style.display = "none";
+    await sleep(20);
+
     window.complex_ebm_result = calculate_complex_ebm(complex_ebm_input['D'], complex_ebm_input['S1'],
         complex_ebm_input['A'], complex_ebm_input['B'], complex_ebm_input['cw'], complex_ebm_input['S0'], complex_ebm_input['S2'],
         complex_ebm_input['a0'], complex_ebm_input['a2'], complex_ebm_input['ai'], complex_ebm_input['Fb'], complex_ebm_input['k'],
         complex_ebm_input['Lf'], complex_ebm_input['cg'], complex_ebm_input['tau'], complex_ebm_input['winter'], complex_ebm_input['summer'],
         complex_ebm_input['years']);
     complex_ebm_plot();
-}
+    progress.style.display = "none";
+    progress.innerHTML = "please wait...<br>(this may take a minute)";
+};
 },{"/Users/benjamin/js_modules/gauss-jordan.js":1,"mathjs":867}],3:[function(require,module,exports){
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
