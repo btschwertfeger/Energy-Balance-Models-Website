@@ -16,10 +16,8 @@
         <title>Enegie Balance Models</title>
 
         <link rel="stylesheet" href="css/format.css">
-
-        <!-- <script type="module" src="ebm-calc.js"></script> -->
-        <!-- <script type="module" src="simple_ebm-calc_bundle.js"></script>
-        <script type="module" src="complex_ebm-calc_bundle.js"> </script> -->
+        
+        <!-- CALCULATION -->
         <script type="module" src="main_bundle.js"></script>
         
         <!-- CHART JS  -->
@@ -30,52 +28,59 @@
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
         <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        
+        <!-- <style> </style> -->
     </head>
     <body>
+        <div id="Headline" style="margin:auto; padding:10px; text-align:center;">
+            <h1>Energy balance models</h1>
+        </div>
+        <div>
+             <!-- id="tebm_introduction"> -->
+            <p class="p_information">
+                "Previous studies identified instabilities for a shrinking
+                ice
+                cover in two types of idealized climate models: (i)
+                annual-mean
+                latitudinally varying diffusive energy balance models (EBMs)
+                and
+                (ii) seasonally varying single-column models (SCMs). The
+                instabilities in these low-order models stand in contrast
+                with
+                results from compre- hensive global climate models (GCMs),
+                which
+                typically do not simulate any such instability. To help
+                bridge
+                the gap between low-order models and GCMs, an idealized
+                model is
+                developed that includes both latitudinal and seasonal
+                variations. The following EBM is a idealized representation
+                of 
+                sea ice and climate with seasonal and latitudinal variations
+                in
+                a global domain." <i>(Extraced from: Till J.W Wagner and Ian
+                    Eisenman, "How Climate Model Complexity Influences Sea
+                    Ice
+                    Stability" (2015) p.2 Abstract)</i>
+                    For simplicity, I will call the paper "paper" so that I can refer to it more easily on this page.
+
+                <br><br>
+            </p>
+            <p class="p_information">
+                &emsp; ☞ <a target="_blank"
+                    href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability">Paper
+                    and Documentation</a>
+            </p>
+            <p class="p_information">
+                &emsp; ☞ <a target="_blank"
+                    href="http://eisenman.ucsd.edu/code.html">Source
+                    Code (Python)</a>
+            </p>
+        </div>
+
         <!-- BEGIN SIMPLE EBM -->
         <div>
             <div id="Headline" style="margin:auto; padding:10px; text-align:center;">
-                <h1>Temperature EBM</h1>
-            </div>
-            <div id="tebm_introduction">
-                <p class="p_introduction">
-                    "Previous studies identified instabilities for a shrinking
-                    ice
-                    cover in two types of idealized climate models: (i)
-                    annual-mean
-                    latitudinally varying diffusive energy balance models (EBMs)
-                    and
-                    (ii) seasonally varying single-column models (SCMs). The
-                    instabilities in these low-order models stand in contrast
-                    with
-                    results from compre- hensive global climate models (GCMs),
-                    which
-                    typically do not simulate any such instability. To help
-                    bridge
-                    the gap between low-order models and GCMs, an idealized
-                    model is
-                    developed that includes both latitudinal and seasonal
-                    variations. The following EBM is a idealized representation
-                    of 
-                    sea ice and climate with seasonal and latitudinal variations
-                    in
-                    a global domain." <i>(Extraced from: Till J.W Wagner and Ian
-                        Eisenman, "How Climate Model Complexity Influences Sea
-                        Ice
-                        Stability" (2015) p.2 Abstract)</i>
-                    <br><br>
-                </p>
-                <p class="p_introduction">
-                    &emsp; ☞ <a target="_blank"
-                        href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability">Paper
-                        and Documentation</a>
-                </p>
-                <p class="p_introduction">
-                    &emsp; ☞ <a target="_blank"
-                        href="http://eisenman.ucsd.edu/code.html">Source
-                        Code </a>
-                </p>
+                <h2>Temperature EBM</h2>
             </div>
             <div>
                 <div id="TEBM-content" style="width:90%; height:800px; margin:
@@ -88,7 +93,7 @@
                         <canvas id="tempEBMchart"></canvas>
                     </div>
 
-                    <!--    Hier kommt der Input               #  # # ## # #  # # ## # # # # ## # -->
+                    <!--    SIMPLE TEMPERATURE EBM INPUT SECTION  -->
                     <div id="input_section" style="height:600px; width:40%; float:left;">
                         <table>
                             <tr>
@@ -220,30 +225,25 @@
             </div>
         </div>
         
-        <!--  BEGIN COMPLEX EBM-->
+        <!--  BEGIN COMPLEX EBM -->
 
         <div>
             <div id="complex_ebm_headline" style="margin:auto; padding:10px; text-align:center;">
-                <h1>Auaplanet EBM with seasonal cycle</h1>
+                <h2>Auaplanet EBM with seasonal cycle</h2>
             </div>
             <div id="complex_ebm_introduction">
-                <p class="p_introduction">
-                \(x = 0\) latitude at the equator and \(x = 1\) at the North Pole <br>
-                \(T_m\):  melting temperature <br> 
-                OLR: outgoing longwave radiation<br>
-                \(S_0\): annual mean insolation at the equator <br> 
-                \(S^{*}_1\): determines the amplitude of seasonal insolation variations (\(\omega = 2\pi yr^{-1}\) is the annual frequency)<br>
-                \(S_2\): determines the equator-to-pole insolation gradient <br>
+                <p class="p_information">
+                "This model is an idealized representation of sea ice and climate with seasonal and latitudinal variations in a global domain. The surface is an aquaplanet with an ocean mixed layer that includes sea ice when conditions are sufficiently cold." <i>(paper p.3; Chapter 2)</i><br>
                 <br>
-                NOTE: Cloud cover and water vapor are not included in this sea ice model.
-                 <br><br>
+                "Horizontal diffusion occurs in a <i>ghost layer</i> with heat capacity \(cg\), all other processes occur in the main layer, and the temperature of the ghost layer is relaxed toward the temperature of the main layer with time scale \(tg\). [...] the ghost layer does not represent a separate physical layer such as the atmosphere, which would add physical complexity to the mode." <i>(paper p.7; Chapter 2.e)</i> 
+                <br><br>
+                <br><br>
                 </p>
             </div>
 
             <div class="complex_ebm_content" style="margin:auto; width:90%; height:auto;">
-
                 <div class="copmlex-ebem-input-section" >
-                    <table>
+                    <table style="border:1px solid; color: black; padding: 15px;">
                         <!-- 1. ROW -->
                         <tr>
                             <td>
@@ -409,7 +409,7 @@
                                 <label for="complex_input_k">Sea ice thermal conductivity</label>
                             </td>
                             <td>
-                                \(K = Wm^{-2}K^{-1}\)
+                                \(K = Wm^{-1}K^{-1}\)
                             </td>
                             <td>
                                 <input id="complex_input_k" type="text" class="complex_ebm_input_field" value="2"></td>
@@ -442,10 +442,9 @@
                         </tr>
                     </table>
                 </div>
-                <div id="complex_ebm_placeholder" style="height:100px;">
-                </div>
+                
                 <!-- PLOTTING AREA -->
-                <div id="complex-ebm-graph-container" style=" height:1400px; width:100%; display:none;">
+                <div id="complex-ebm-graph-container" style=" height:1300px; width:100%; display:none;">
                     <div style="width:100%;">
                         <div id="complex_ebm_seas_enthalpy_plot" style="width:33.33%; height: 700px; float: left;"></div>
                         <div id="complex_ebm_seas_T_plot" style="width:33.33%; height:700px; float: left;"></div>
@@ -470,9 +469,52 @@
                         </div>
 
                     </div>
-                </div>                     
+                </div>             
             </div>
+            <div id="complex_ebm_placeholder" style="height:50px;"></div>
+            <!-- SOME INFORMATION ABOUT THIS EBM-->
+            <div id="complex-ebm-information">
+                <p class="p_information">
+                    With default parameters the seasonal cycle of the equilibrated climate is plotted.<br><br>
+                    (a) shows the seasonal cycle of \(E(t, x)\), which fully represents the model state since \(E\) is the only prognostic variable and the forcing varies seasonally.
+                    The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day climate observations in the Northern Hemisphere.  <br><br> 
+                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) latitude at the equator and \(x = 1\) at the North Pole <br>
+                    <br> 
+                    
+                    <table style="margin-left: 20px; font-size: 18;">
+                        <tr>
+                            <td>\(T_m\) -</td>
+                            <td>melting temperature</td>
+                        </tr>
+                        <tr>
+                            <td>OLR -</td>
+                            <td>outgoing longwave radiation</td>
+                        </tr>
+                        <tr>
+                            <td>\(S_0\) -</td>
+                            <td>annual mean insolation at the equator</td>
+                        </tr>
+                        <tr>
+                            <td>\(S^{*}_1\) -</td>
+                            <td>determines the amplitude of seasonal insolation variations (\(\omega = 2\pi yr^{-1}\) is the annual frequency)</td>
+                        </tr>
+                        <tr>
+                            <td>\(S^{*}_1\) -</td>
+                            <td>determines the equator-to-pole insolation gradient </td>
+                        </tr>
+                    </table>
+                    
+                    <br>
+                    NOTE: Cloud cover and water vapor are not included in this idealized sea ice model.
+                </p>
+            </div>
+            
             <script type="module" src="layout_scripts.js"></script>
+        </div>
+        <div id="placeholder" style="height:50px;"></div>
+        <div id="footer" style="text-align:center;margin:0 autp; ">
+            <p> Mathematical basics described in <a href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"><i>"How Climate Model Complexity Influences Sea Ice Stability"</i></a> by Till J. W. Wagner and Ian Eisenman.<br>
+                Translation from Python to Javascript with additional variations, and creation of the page by <a href = "mailto: kontakt@b-schwertfeger.de">Benjamin T. Schwertfeger</a>.</p>
         </div>
     </body>
 </html>
