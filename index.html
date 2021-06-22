@@ -83,19 +83,18 @@
                 <h2>Temperature EBM</h2>
             </div>
             <div>
-                <div id="TEBM-content" style="width:90%; height:800px; margin:
-                    auto;">
-                    <div id="tebm_all_graphs_container" style="height:300px; width:100%">
+                <div id="TEBM-content" class="tebm-content">
+                    <div id="tebm_all_graphs_container" class="ebm-all-graphs-container" >
                         <canvas id="tempEBMchart_all"></canvas>
                     </div>
 
-                    <div id="graph-container" style="width:60%; height:600px; float:left;">
+                    <div id="graph-container" class="tebm-graph-container">
                         <canvas id="tempEBMchart"></canvas>
                     </div>
 
                     <!--    SIMPLE TEMPERATURE EBM INPUT SECTION  -->
-                    <div id="input_section" style="height:600px; width:40%; float:left;">
-                        <table style="border:1px solid; color: black; padding: 15px;">
+                    <div id="input_section" class="tebm-input-section">
+                        <table class="tebm-input-section-table">
                             <tr>
                                 <th colspan="4">Input Section</th>
                             </tr>
@@ -189,7 +188,7 @@
                                         max="1" step="0.001" value="0.1"></td>
                             </tr>
                             <tr>
-                                <td>\(a_i\)</td>
+                                <td>\(\alpha_i\)</td>
                                 <td>Coalbedo when there is sea ice: </td>
                                 <td><div id="ai_sliderAmount">0.4</div></td>
                                 <td><input id="ai_slide" type="range"
@@ -224,6 +223,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="between-placeholder" style="height: 100px;"></div>
         
         <!--  BEGIN COMPLEX EBM -->
 
@@ -268,7 +269,7 @@
                                 <label for="complex_input_ai">Coalbedo where is sea ice</label>
                             </td>
                             <td>
-                                \(a_i\)
+                                \(\alpha_i\)
                             </td>
                             <td>
                                 <input id="complex_input_ai" type="text" class="complex_ebm_input_field" value="0.4"></td>
@@ -280,7 +281,7 @@
                                 <label for="complex_input_S0">Insolation at equator</label>
                             </td>
                             <td>
-                                \( S_0 = Wm^{-2}\)
+                                \(S_0 = Wm^{-2}\)
                             </td>
                             <td>
                                 <input id="complex_input_S0" type="text" class="complex_ebm_input_field" value="420"></td>
@@ -478,7 +479,7 @@
                     With default parameters the seasonal cycle of the equilibrated climate is plotted.<br><br>
                     (a) shows the seasonal cycle of \(E(t, x)\), which fully represents the model state since \(E\) is the only prognostic variable and the forcing varies seasonally.
                     The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day climate observations in the Northern Hemisphere.  <br><br> 
-                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of incident solar radiation \(S\) that is absorbed and not reflected to space (1-albedo).<br>
+                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of incident solar radiation \(S\) that is absorbed and not reflected to space (\(1-\alpha\)).<br>
                    <br> 
                     
                     <table style="margin-left: 20px; font-size: 18;">
@@ -511,10 +512,10 @@
             
             <script type="module" src="layout_scripts.js"></script>
         </div>
-        <div id="placeholder" style="height:50px;"></div>
-        <div id="footer" style="text-align:center;margin:0 autp; ">
+        <div id="placeholder" style="height: 50px;"></div>
+        <div id="footer" style="text-align:center; margin:0 autp; ">
             <p> Mathematical basics described in <a href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"><i>"How Climate Model Complexity Influences Sea Ice Stability"</i></a> by Till J. W. Wagner and Ian Eisenman.<br>
-                Translation from Python to Javascript with additional variations, and creation of the page by <a href = "mailto: kontakt@b-schwertfeger.de">Benjamin T. Schwertfeger</a>.</p>
+                JavaScript implementation with additional variations, and creation of this page by <a href="https://www.b-schwertfeger.de">Benjamin T. Schwertfeger</a>.</p>
         </div>
     </body>
 </html>

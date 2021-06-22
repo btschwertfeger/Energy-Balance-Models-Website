@@ -624,14 +624,6 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
         return Math.asin(entry) * (180 / Math.PI);
     });
 
-    // let DATASETS = [{
-    //     label: 'Default Temperature',
-    //     data: default_TEBM_result['T'],
-    //     fill: false,
-    //     borderColor: 'rgb(255,0,0)',
-    //     pointRadius: 0
-    // }];
-
     let ctx = document.getElementById('tempEBMchart');
     let tebm_chart = new Chart(ctx, {
         type: 'line',
