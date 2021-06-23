@@ -35,6 +35,9 @@ tebm_resetbtn.onclick = function () {
 }
 /* SLIDER  */
 for (let entry = 0; entry < tebm_sliders.length; entry++) {
+    tebm_sliders[entry].oninput = function () {
+        document.getElementById(tebm_sliders[entry].id + 'rAmount').innerHTML = document.getElementById(tebm_sliders[entry].id).value;
+    }
     tebm_sliders[entry].onchange = function () {
         window.doTEBM({
             D: document.getElementById('D_slide').value,
@@ -49,7 +52,6 @@ for (let entry = 0; entry < tebm_sliders.length; entry++) {
             F: document.getElementById('F_slide').value,
             gamma: document.getElementById('gamma_slide').value
         })
-        document.getElementById(tebm_sliders[entry].id + 'rAmount').innerHTML = document.getElementById(tebm_sliders[entry].id).value;
     }
 }
 

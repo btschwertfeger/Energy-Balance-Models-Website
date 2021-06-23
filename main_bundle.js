@@ -158,164 +158,6 @@ if (typeof module.exports === "object") {
   module.exports = linear;
 }
 },{}],2:[function(require,module,exports){
-// ################################################################
-
-/*
-    CALCULATION OF THE SIMPLE TEMPERATURE EBM IN PYTHON: (SOURCE: http://eisenman.ucsd.edu/code/python/EBM_simple_WE15.py)
-    D = 0.6 # diffusivity for heat transport (W m^-2 K^-1)
-    A = 193 # OLR when T = 0 (W m^-2)
-    B = 2.1 # OLR temperature dependence (W m^-2 K^-1)
-    cw = 9.8 # ocean mixed layer heat capacity (W yr m^-2 K^-1)
-    S0 = 420 # insolation at equator (W m^-2)
-    S2 = 240 # insolation spatial dependence (W m^-2)
-    a0 = 0.7 # ice-free co-albedo at equator
-    a2 = 0.1 # ice=free co-albedo spatial dependence
-    ai = 0.4 # co-albedo where there is sea ice
-    F = 0 # radiative forcing (W m^-2)
-    n = 50 # grid resolution (number of points between equator and pole)
-    nt = .5
-    dur = 100
-    dt = 1/nt
-    # Spatial Grid ---------------------------------------------------------
-    dx = 1.0/n # grid box width
-    x = np.arange(dx/2,1+dx/2,dx) #native grid
-    xb = np.arange(dx,1,dx)
-    # Diffusion Operator (WE15, Appendix A) -----------------------------------
-    lam = D/dx**2*(1-xb**2)
-    L1=np.append(0, -lam)
-    L2=np.append(-lam, 0)
-    L3=-L1-L2
-    diffop = - np.diag(L3) - np.diag(L2[:n-1],1) - np.diag(L1[1:n],-1);
-    S = S0-S2*x**2 # insolation [WE15 eq. (3) with S_1 = 0]
-    aw = a0-a2*x**2 # open water albedo
-
-    T = 10*np.ones(x.shape) # initial condition (constant temp. 10C everywhere)
-    allT = np.zeros([int(dur*nt),n])
-    t = np.linspace(0,dur,int(dur*nt))
-
-    I = np.identity(n)
-    invMat = np.linalg.inv(I+dt/cw*(B*I-diffop))
-    # integration over time using implicit difference and
-    # over x using central difference (through diffop)
-
-    for i in range(0,int(dur*nt)):
-        a = aw*(T>0)+ai*(T<0) # WE15, eq.4
-        C = a*S-(gamma*A)+F #a*S-A+F
-        T0 = T+dt/cw*C
-        # Governing equation [cf. WE15, eq. (2)]:
-        # T(n+1) = T(n) + dt*(dT(n+1)/dt), with c_w*dT/dt=(C-B*T+diffop*T)
-        # -> T(n+1) = T(n) + dt/cw*[C-B*T(n+1)+diff_op*T(n+1)]
-        # -> T(n+1) = inv[1+dt/cw*(1+B-diff_op)]*(T(n)+dt/cw*C)
-        T = np.dot(invMat,T0)
-        allT[i,:]=T
-
-*/
-
-/* 
-    CALCULATION OF THE COMPLEX EBM IN PYHTON:  (SOURCE: http://eisenman.ucsd.edu/code/python/sea_ice_EBM_WE15.py)
-    D = 0.6 # diffusivity for heat transport (W m^-2 K^-1)
-        S1 = 338; # insolation seasonal dependence (W m^-2)
-    A = 193 # OLR when T = 0 (W m^-2)
-    B = 2.1 # OLR temperature dependence (W m^-2 K^-1)
-    cw = 9.8 # ocean mixed layer heat capacity (W yr m^-2 K^-1)
-    S0 = 420 # insolation at equator (W m^-2)
-    S2 = 240 # insolation spatial dependence (W m^-2)
-    a0 = 0.7 # ice-free co-albedo at equator
-    a2 = 0.1 # ice=free co-albedo spatial dependence
-    ai = 0.4 # co-albedo where there is sea ice
-    Fb = 4; # heat flux from ocean below (W m^-2)
-    k = 2; # sea ice thermal conductivity (W m^-2 K^-1)
-    Lf = 9.5; # sea ice latent heat of fusion (W yr m^-3)
-    cg = 0.01*cw; # ghost layer heat capacity(W yr m^-2 K^-1)
-    tau = 1e-5; # ghost layer coupling timescale (yr)
-    ##The default run in WE15, Fig 2 uses the time-stepping parameters: -------
-    #n=400; % # of evenly spaced latitudinal gridboxes (equator to pole)
-    #nt=1e3; % # of timesteps per year (approx lower limit of stability)
-    #dur=200; % # of years for the whole run
-    ##For a quicker computation, use the parameters: --------------------------
-    n = 100;
-    nt = 1e3;
-    dur = years #30;
-    dt = 1/nt;
-    #Spatial Grid -------------------------------------------------------------
-    dx = 1.0/n #grid box width
-    x = np.arange(dx/2,1+dx/2,dx) #native grid
-    xb = np.arange(dx,1,dx)
-    ##Diffusion Operator (WE15, Appendix A) -----------------------------------
-    lam = D/dx**2*(1-xb**2)
-    L1=np.append(0, -lam); L2=np.append(-lam, 0); L3=-L1-L2
-    diffop = - np.diag(L3) - np.diag(L2[:n-1],1) - np.diag(L1[1:n],-1);
-    ##Definitions for implicit scheme on Tg
-    cg_tau = cg/tau;
-    dt_tau = dt/tau;
-    dc = dt_tau*cg_tau;
-    kappa = (1+dt_tau)*np.identity(n)-dt*diffop/cg;
-    ##Seasonal forcing (WE15 eq.3)
-    ty = np.arange(dt/2,1+dt/2,dt)
-    S = (np.tile(S0-S2*x**2,[int(nt),1]) - np.tile(S1*np.cos(2*np.pi*ty),[n,1]).T*np.tile(x,[int(nt),1]));
-    ##Further definitions
-    M = B+cg_tau;
-    aw = a0-a2*x**2 # open water albedo
-    kLf = k*Lf;
-    #Set up output arrays, saving 100 timesteps/year
-    E100 = np.zeros([n,dur*100]); T100 = np.zeros([n,dur*100])
-    p = -1; m = -1
-    #Initial conditions ------------------------------------------------------
-    T = 7.5+20*(1-2*x**2);
-    Tg = T; E = cw*T;
-    #Integration (see WE15_NumericIntegration.pdf)----------------------------
-    #Loop over Years ---------------------------------------------------------
-    info.clear_output()
-    with info:
-        for years in tqdm.tqdm(range(0,dur)):
-            #Loop within One Year-------------------------------------------------
-            for i in range(0, int(nt)):
-                m = m+1
-                #store 100 timesteps per year
-                if (p+1)*10 == m:
-                    p = p+1
-                E100[:,p] = E
-                T100[:,p] = T
-                #forcing
-                alpha = aw*(E>0) + ai*(E<0) #WE15, eq.4
-                C = alpha*S[i,:]+cg_tau*Tg-A # alpha*S[i,:]+cg_tau*Tg-(gamma*A)
-                #surface temperature
-                T0 = C/(M-kLf/E) #WE15, eq.A3
-                T = E/cw*(E>=0)+T0*(E<0)*(T0<0); #WE15, eq.9
-                #Forward Euler on E
-                E = E+dt*(C-M*T+Fb); #WE15, eq.A2
-                #Implicit Euler on Tg
-                Tg = np.linalg.solve(kappa-np.diag(dc/(M-kLf/E)*(T0<0)*(E<0)), Tg+(dt_tau*(E/cw*(E>=0)+(ai*S[i,:]-A)/(M-kLf/E)*(T0<0)*(E<0))))
-            #print('year %d complete' %(years))
-    #-------------------------------------------------------------------------
-    #output only converged, final year
-    tfin = np.linspace(0,1,100)
-    Efin = E100[:,-101:-1]
-    Tfin = T100[:,-101:-1]
-    # ------------------------------------------------------------------------
-    #WE15, Figure 2: Default Steady State Climatology ------------------------
-    # ------------------------------------------------------------------------
-    #winter = 26 #time of coldest <T>
-    #summer = 76 #time of warmest <T>
-    
-    #compute seasonal ice edge
-    xi = np.zeros(100)
-    #if isempty(find(E<0,1))==0:  
-    for j in range(0,len(tfin)):
-        E = Efin[:,j]
-        if any(E<0):
-            ice = np.where(E<0)[0]
-            xi[j] = x[ice[0]];
-        else:
-            xi[j] = max(x);
-*/
-
-
-//########################################################################################################################
-//#############################################################################################################
-//#################################################################################################
-// ################################################################################
-
 /*
 ########################################
 ## @author Benjamin Thomas Schwertfeger
@@ -325,7 +167,6 @@ if (typeof module.exports === "object") {
 // ************
 // This will be in main_bundle.js (->watchify main.js -o main_bundle.js)
 // ************
-
 
 const {
     inv,
@@ -783,14 +624,6 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
     const LABELS = default_TEBM_result['x'].map(function (entry) {
         return Math.asin(entry) * (180 / Math.PI);
     });
-
-    // let DATASETS = [{
-    //     label: 'Default Temperature',
-    //     data: default_TEBM_result['T'],
-    //     fill: false,
-    //     borderColor: 'rgb(255,0,0)',
-    //     pointRadius: 0
-    // }];
 
     let ctx = document.getElementById('tempEBMchart');
     let tebm_chart = new Chart(ctx, {
