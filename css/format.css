@@ -1,7 +1,28 @@
+/*
+<!--
+    ########################################
+    ## @author Benjamin Thomas Schwertfeger (July 2021)
+    ## copyright by Benjamin Thomas Schwertfeger (July 2021)
+    ############ 
+-->
+*/
+
+:root {
+  --primary-bg-color: white;
+  --primary-font-color: black;
+  --primary-font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
 html {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16;
-  color: black;
+  font-size: var(--primary-font-size);
+  color: var(--primary-font-color);
 }
 a {
   text-decoration: none;
@@ -13,44 +34,236 @@ a:visited {
 a:hover {
   color: red;
 }
+canvas{
+  width: 91%;
+  height: 100%;
+  margin-right:1%;
+}
 
 .p_information {
   width: 80%;
-  margin: auto;
+  margin: 0px auto;
   font-size: 18;
   text-align: justify;
 }
 
-.tebm-content {
-  width: 90%;
-  margin: 0px auto;
+.input-wrapper {
+  min-width: 230px;/*290px;*/
+  margin: 8px;
+}
+.input-wrapper,
+.slide-value {
+  display: inline-block;
 }
 
+.slide {
+  float: right;
+  -webkit-appearance: none;
+  min-width: 165px;/*225px;*/
+  height: 20px;
+
+  outline: none;
+  opacity: 0.7;
+  padding: 0px;
+  margin: 2px 0px 2px 0px;
+
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: inset 26px 26px 52px #b3b3b3, inset -26px -26px 52px #ffffff;
+}
+.slide:hover {
+  opacity: 1;
+}
+.slide::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 35px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 6px 6px 12px #969696, -0px -0px 0px #ffffff;
+}
+.slider::-moz-range-thumb {
+  width: 35px;
+  height: 20px;
+  cursor: pointer;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 6px 6px 12px #969696, -0px -0px 0px #ffffff;
+}
+.slide-value {
+  width: 65px;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  padding: 0px 0px;
+  margin-top: 2px;
+  margin-left: 0px;
+  margin-right: 10px;
+
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 6px 6px 12px #969696, -6px -6px 12px #ffffff;
+}
+
+.someBtn {
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  margin: 5px;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 15px;
+  box-shadow: 26px 26px 52px #969696, -26px -26px 52px #ffffff;
+}
+.someBtn:hover {
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 8px 8px 16px #969696, -8px -8px 16px #ffffff;
+}
+.someBtn:active {
+  background-color: #ffffff;
+  box-shadow: inset 8px 8px 16px #969696, inset -8px -8px 16px #ffffff;
+}
+.selection{
+  position: relative;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  border: none;
+  -moz-padding-start: calc(10px - 3px);
+  padding-left:8px;
+  width:30px;
+  height:40px;
+  border-radius: 10px ;
+  box-shadow: 8px 8px 32px #969696, -8px -8px 32px #ffffff;
+  cursor:pointer;
+  outline: none;
+}
+.select:focus::-ms-value {
+  background-color: transparent;
+}
+
+.selection:hover{
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 8px 8px 16px #969696, -8px -8px 16px #ffffff;
+}
+.selection:active{
+  background-color: #ffffff;
+  box-shadow: inset 8px 8px 16px #969696, inset -8px -8px 16px #ffffff;
+}
+/*
+# =========
+# =====================
+# =====================================
+# ===================================================================================
+# ===================================================================================
+# TEBM 
+*/
+.tebm-content-wrapper{
+  width:95%;
+  margin: 0 auto;
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: 26px 0px 52px #969696, -26px -26px 52px #ffffff;
+}
+.tebm-content {
+  width: 100%;
+  display: inline-block;
+  font-size: 0px;
+  position: relative;
+}
+
+.tebm-graph-container{
+  width:95%;
+  height: 300px;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 .ebm-all-graphs-container {
+  margin: 15px 0px 25px 0px;
   height: 300px;
   width: 100%;
 }
-
-.tebm-input-section-table {
-  border: 1px solid;
-  color: black;
-  padding: 15px;
-  margin: auto;
+.tebm-graph-container,
+.ebm-all-graphs-container{
+  width: 100%;
+  border-radius: 30px 30px 30px 30px;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
 }
 
+.tebm-input-section{
+  position: relative;
+  text-align: center;
+  font-size: var(--primary-font-size);
+}
+.tebm-input-section-table {
+  padding: 15px;
+}
+
+.tebm-input-section button {
+  margin-top: 15px;
+  vertical-align: top;
+}
+
+
+/*
+# =========
+# =====================
+# =====================================
+# ===================================================================================
+# ===================================================================================
+# COMPLEX TEBM 
+*/
+
+.complex-input-wrapper{
+  display: inline-block;
+  /* margin: 8px auto; */
+  margin: 10px 0px 10px 10px;
+  box-shadow: 12px 12px 32px #969696, -12px -12px 32px #ffffff;
+  border-radius: 15px;
+  position: relative;
+  padding: 7px;
+  
+}
+.complex-input-wrapper input {
+  position: relative;
+  padding: 7px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 10px;
+  max-width: 70px;
+  
+  color: black;
+  background-color: #ffffff;
+  box-shadow: inset 2px 2px 16px #969696, inset -2px -2px 16px #ffffff;
+  
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+}
+
+.complex-ebm-graph-container{
+  display:none;
+  height:1300px;
+  width:95%;
+  margin: 0 auto;
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: 26px 0px 52px #969696, -26px -26px 52px #ffffff;
+
+}
+/* .complex-ebm-input-section-table{
+  border:1px solid; color: black; padding: 15px;margin: 0 auto;
+}
 .complex_ebm_input_field {
   width: 80px;
-}
-
-@media only screen and (min-width: 1400px) {
-  .tebm-input-section {
-    width: 40%;
-    height: 600px;
-    float: left;
-  }
-  .tebm-graph-container {
-    width: 60%;
-    height: 300px;
-    float: left;
-  }
-}
+} */

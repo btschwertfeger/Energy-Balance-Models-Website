@@ -1,13 +1,14 @@
-/*
-########################################
-## @author Benjamin Thomas Schwertfeger
-############
-*/
+/*<!--
+    ########################################
+    ## @author Benjamin Thomas Schwertfeger (July 2021)
+    ## copyright by Benjamin Thomas Schwertfeger (July 2021)
+    ############ 
+-->
 
 // ************
 // This will be in main_bundle.js (->watchify main.js -o main_bundle.js)
 // ************
-
+*/
 const {
     inv,
     multiply,
@@ -471,7 +472,7 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
         data: {
             labels: LABELS,
             datasets: [{
-                label: 'Default Temperature',
+                label: 'default temperature',
                 data: default_TEBM_result['T'],
                 fill: false,
                 borderColor: 'rgb(255,0,0)',
@@ -480,6 +481,7 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
@@ -493,7 +495,6 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
                     position: 'top',
                 }
             },
-
             scales: {
                 x: {
                     display: true,
@@ -530,7 +531,7 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
                     loop: (ctx) => ctx.activate
                 }
             },
-            hoverRadius: 12,
+            hoverRadius: 8,
             hoverBackgroundColor: 'yellow',
             interaction: {
                 mode: 'nearest',
@@ -540,7 +541,6 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
 
         }
     });
-
     window.tebm_chart = tebm_chart;
 
     /* CHART WITH ALL LINES */
@@ -613,7 +613,7 @@ window.plot_default_tebm_chart = function plot_default_tebm_chart() {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Temperature °C',
+                        text: 'Temperature in °C',
                         font: {
                             family: 'Helvetica',
                             size: 16
@@ -682,6 +682,7 @@ for (let i = 0; i < window.xLatitudes.length; i++) {
     option.value = i; //i as index | window.xLatitudes[i];
     document.getElementById('xlatitudes-container').appendChild(option);
 }
+
 
 /* global stuff */
 window.onload = window.plot_default_tebm_chart();
@@ -1306,7 +1307,7 @@ function complex_ebm_plot() {
             type: 'contour',
             name: 'temperature',
         }, iceEdgeLineData], {
-            title: 'b) Temperature (°C)',
+            title: 'b) Temperature (in °C)',
             xaxis: {
                 title: {
                     text: 't (final year)',
@@ -1462,7 +1463,7 @@ function complex_ebm_plot() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'd) Surface Temperature (final year)',
+                    text: 'd) Surface temperature (final year)',
                     font: {
                         Family: 'Helvetica',
                         size: 18
