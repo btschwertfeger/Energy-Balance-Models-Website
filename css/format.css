@@ -17,6 +17,12 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+
+  /* avoid transition flickering */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d; 
 }
 
 html {
@@ -125,11 +131,11 @@ canvas{
 .someBtn:hover {
   background: linear-gradient(145deg, #e6e6e6, #ffffff);
   box-shadow: 8px 8px 16px #969696, -8px -8px 16px #ffffff;
-  transition: box-shadow 0.2s ease-in-out;
 }
 .someBtn:active {
   background-color: #ffffff;
   box-shadow: inset 8px 8px 16px #969696, inset -8px -8px 16px #ffffff;
+  cursor: pointer;
 }
 .selection{
   position: relative;
