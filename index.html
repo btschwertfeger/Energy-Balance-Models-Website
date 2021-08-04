@@ -3,6 +3,8 @@
     ## @author Benjamin Thomas Schwertfeger (July 2021)
     ## copyright by Benjamin Thomas Schwertfeger (July 2021)
     ############ 
+
+    https://paleodyn.uni-bremen.de/study/MES/ebm/index.html
 -->
 
 
@@ -83,9 +85,6 @@
                 <h2>Temperature EBM</h2>
             </div>
             <div class="tebm-description" style="padding:30px;">
-                <p>
-                  Explainations:
-                </p>
                 <table style="margin: 0 auto; width: 95%;">
                     <tr>
                         <td>Diffusy for heat transport: </td>
@@ -129,8 +128,8 @@
 
             <div id="tebm_content_wrapper" class="tebm-content-wrapper">
                 <div id="tebm_content" class="tebm-content">
-                    <div class="tebm-plot-container" style="width:95%; margin:0 auto;">
-                        <div id="tebm_all_graphs_container" class="ebm-all-graphs-container" >
+                    <div class="tebm-plot-container">
+                        <div id="tebm_all_graphs_container" class="ebm-all-graphs-container">
                             <canvas id="tempEBMchart_all"></canvas>
                         </div>
                         <div id="graph-container" class="tebm-graph-container">
@@ -241,10 +240,12 @@
                                 min="0" max="2"
                                 step="0.01" value="1">
                             </div>
-        
+                            <div class="input-wrapper">
                             <button type="button" id="add_tebm_graph" class="someBtn">Add</button>
                             <button type="button" id="tebm_resetbtn" class="someBtn">Reset</button>
+                        </div>
                     </div>
+
                 </div>                
             </div>
         </div> <!-- END SIMPLE TEBM -->
@@ -264,9 +265,6 @@
                 </p>
             </div>
             <div class="complex-ebm-description" style="width:95%; margin:0 auto; padding:30px;">
-                <p>
-                  Explainations:
-                </p>
                 <table style="margin: 0 auto; width: 100%;">
                     <tr>
                         <td>Diffusy for heat transport: </td>
@@ -343,7 +341,7 @@
                 </table>
             </div>
 
-
+            <!-- INPUT SECTION -->
             <div class="complex-ebm-input-section" style="width:95%; margin: 0px auto; text-align: center;">
                 <div class="complex-input-wrapper">
                     \(D^*\): 
@@ -381,6 +379,7 @@
                     <input id="complex_input_cw" type="text" class="complex_ebm_input_field" value="9.8"></td>
                 </div>
 
+
                 <div class="complex-input-wrapper">
                     \(\tau_g\): 
                     <input id="complex_input_tau" type="text" class="complex_ebm_input_field" value="0.00001"></td>
@@ -408,14 +407,6 @@
                     \(L_f\): 
                     <input id="complex_input_Lf" type="text" class="complex_ebm_input_field" value="9.5"></td>
                 </div>
-                <div class="complex-input-wrapper">
-                    \(F_b\): 
-                    <input id="complex_input_Fb" type="text" class="complex_ebm_input_field" value="4"></td>
-                </div>
-                <div class="complex-input-wrapper">
-                    \(T_{cold}\): 
-                    <input id="complex_input_winter" type="text" class="complex_ebm_input_field" value="26"></td>
-                </div>
 
 
                 <div class="complex-input-wrapper">
@@ -435,38 +426,51 @@
                     <input id="complex_input_winter" type="text" class="complex_ebm_input_field" value="26"></td>
                 </div>
 
-                <div id="complex_is_Running" style="color:red;; display:none;">please wait...<br>(this may take a few moments)</div>
+                <div id="complex_is_Running" style="color:red; display:none; z-index:4;">please wait...<br>(this may take a few moments)</div>
                 
                 <div>
-                    <button type="button" id="complex_ebm_submitbtn" class="someBtn">Go</button>
-                    <button type="button" id="complex_ebm_resetbtn" class="someBtn">Reset</button>
+                    <button type="button" id="complex_ebm_submitbtn" class="someBtn" style="z-index:1">Go</button>
+                    <button type="button" id="complex_ebm_resetbtn" class="someBtn" style="z-index:1">Reset</button>
                 </div>
             </div>
             
 
+            <div class="placeholder" style="height:55px;"></div>
             <!-- PLOTTING AREA -->
-            <div id="complex-ebm-graph-container" style="
-            display:none;">
-                <div style="width:100%;">
-                   <div id="complex_ebm_seas_enthalpy_plot" style="width:33.33%; height: 700px; float: left;"></div>
-                    <div id="complex_ebm_seas_T_plot" style="width:33.33%; height:700px; float: left;"></div>
-                    <div id="complex_ebm_seas_SeaIce_plot" style="width: 33.33%; height:700px; float: left;"></div>
+            <div id="complex-ebm-plot-container" class="complex-ebm-plot-container" style="display:none;">
+                <div class="complex-contour-plots-wrapper">
+                    <div class="complex-contour-plots-wrapper-row">
+                        <div id="complex_ebm_seas_enthalpy_plot" class="complex-contour-plot-container"></div>
+                        <div id="complex_ebm_seas_T_plot" class="complex-contour-plot-container"></div>
+                        <div id="complex_ebm_seas_SeaIce_plot" class="complex-contour-plot-container"></div>
+                    </div>
                 </div>
-                <div id="complex_ebm_graphs" style="width:100%; height:600px;">
-                    <div id ="complex_tsurf_graph_container" style="width:50%; height:300px; float:left;">
-                        <canvas id="complex_tsurf_graph" style="width:50%; height:300px;"></canvas>
+                <div class="placeholder" style="height:15px;"></div>
+                <div id="complex_ebm_graphs" class="complex-ebm-4graphs-container">
+                    <div class="complex-graph-row">
+                        <div class="col-left"> 
+                            <div id ="complex_tsurf_graph_container"  class="complex-graph-container" >
+                                <canvas id="complex_tsurf_graph"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-right">
+                            <div id ="complex_iceThickness_graph_container" class="complex-graph-container">
+                                <canvas id="complex_iceThickness_graph"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div id ="complex_iceThickness_graph_container" style="width:50%; height:300px; float: left;">
-                        <canvas id="complex_iceThickness_graph" style="width:50%; height:300px;"></canvas>
+                    <div class="complex-graph-row">
+                        <div class="col-left">
+                            <div id ="complex_seasCycleIceThickness_graph_container" class="complex-graph-container" >
+                                <canvas id="complex_seasCycleIceThickness_graph"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-right">
+                            <div id ="complex_seasCycleIceEdge_graph_container" class="complex-graph-container" >
+                                <canvas id="complex_seasCycleIceEdge_graph"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div id ="complex_seasCycleIceThickness_graph_container" style="width:50%; height:300px; float: left;">
-                        <canvas id="complex_seasCycleIceThickness_graph" style="width:50%; height:300px;"></canvas>
-                    </div>
-
-                    <div id ="complex_seasCycleIceEdge_graph_container" style="width:50%; height:300px; float: left;">
-                        <canvas id="complex_seasCycleIceEdge_graph" style="width:50%; height:300px;"></canvas>
-                    </div>
-
                 </div>
             </div>   
 
@@ -477,10 +481,12 @@
                     With default parameters the seasonal cycle of the equilibrated climate is plotted.<br><br>
                     (a) shows the seasonal cycle of \(E(t, x)\), which fully represents the model state since \(E\) is the only prognostic variable and the forcing varies seasonally.
                     The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day climate observations in the Northern Hemisphere.  <br><br> 
-                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of incident solar radiation \(S\) that is absorbed and not reflected to space (\(1-\alpha\)).<br>
+                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) 
+                    indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of incident solar radiation \(S\) that is absorbed and not reflected to space (\(1-\alpha\)).
+                    <br>
                    <br> 
-                    
-                    <table style="margin-left: 20px; font-size: 18;">
+                </p>
+                    <table style="width: 75%; margin: 0 auto;">
                         <tr>
                             <td>\(T_m\) -</td>
                             <td>melting temperature</td>
@@ -503,9 +509,10 @@
                         </tr>
                     </table>
                     
-                    <br>
+                    <p class="p_information">
+                        <br>
                     NOTE: Cloud cover and water vapor are not included in this idealized sea ice model.
-                </p>
+                    </p>
             </div>
             
             <script type="module" src="layout_scripts.js"></script>
