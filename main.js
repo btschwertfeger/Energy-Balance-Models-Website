@@ -1271,14 +1271,14 @@ function complex_ebm_plot() {
             type: 'contour',
             name: 'surface enthalpy',
             // colorbar: {
-            //     title: '$E(Jm^{-1})$',
+            //     title: '$E(Jm^{-2})$',
             //     titleside: 'right',
             //     titlefont: {
             //         size: 14,
             //     }
             // }
         }, iceEdgeLineData], {
-            title: 'a) Surface enthalpy (E(Jm^{-1}))',
+            title: 'a) Surface enthalpy (E(Jm^{-2}))',
             xaxis: {
                 title: {
                     text: 't (final year)',

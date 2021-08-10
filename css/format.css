@@ -17,11 +17,14 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
 
   /* avoid transition flickering */
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
   -webkit-transform-style: preserve-3d; 
 }
 
@@ -256,16 +259,27 @@ canvas{
   
   text-align: center;
   color: black;
+  font-size: 14px;;
   background-color: #ffffff;
   box-shadow: inset 2px 2px 16px #969696, inset -2px -2px 16px #ffffff;
   
   outline: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+
+  box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  
   transition: box-shadow 0.3s ease-in-out;
+  -webkit-transition: box-shadow 0.3s ease-in-out;
+  -moz-transition: box-shadow 0.3s ease-in-out;
+  -ms-transition: box-shadow 0.3s ease-in-out;
+  -o-transition: box-shadow 0.3s ease-in-out;
 }
 .complex-input-wrapper input:hover {
   box-shadow: inset 6px 6px 16px #969696, inset -6px -6px 16px #ffffff;

@@ -275,36 +275,36 @@ function poolColors(a) {
 function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 0.7, a2 = 0.1, ai = 0.4, F = 0.0, gamma = 1) {
     F = parseFloat(F); // float it to avoid errors
     D = parseFloat(D);
-    let n = 50 // grid resolution (number of points between equator and pole)
-    let nt = .5
-    let dur = 100
-    let dt = 1 / nt
+    let n = 50, // grid resolution (number of points between equator and pole)
+        nt = .5,
+        dur = 100,
+        dt = 1 / nt;
     // Spatial Grid ---------------------------------------------------------
     let dx = 1.0 / n // grid box width
     let x = range(dx / 2, 1 + dx / 2, dx);
     x = x.map(function (entry) {
-        return Math.round(entry * 100) / 100
+        return Math.round(entry * 100) / 100;
     }) //native grid
     let xb = range(dx, 1, dx);
     xb = xb.map(function (entry) {
-        return Math.round(entry * 100) / 100
+        return Math.round(entry * 100) / 100;
     });
 
     // Diffusion Operator (WE15, Appendix A) -----------------------------------
-    let lam = (xb.map(function (entry) {
+    let lam = xb.map(function (entry) {
         return 1 - Math.pow(entry, 2)
-    })).map(function (entry) {
-        return entry * D / Math.pow(dx, 2)
+    }).map(function (entry) {
+        return entry * D / Math.pow(dx, 2);
     })
 
     let L1 = [];
     L1.push(0);
     lam.map(function (entry) {
-        L1.push(Math.round(entry * -1 * 100) / 100)
+        L1.push(Math.round(entry * -1 * 100) / 100);
     });
     let L2 = [];
     lam.map(function (entry) {
-        L2.push(Math.round(entry * -1 * 100) / 100)
+        L2.push(Math.round(entry * -1 * 100) / 100);
     });
     L2.push(0);
     let L3 = new Array(L1.length);
@@ -314,7 +314,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
     let L3_diag = [];
     for (let i = 0; i < L3.length; i++) {
-        L3_diag.push(new Array(L3.length))
+        L3_diag.push(new Array(L3.length));
     }
 
     for (let row = 0; row < L3_diag.length; row++) {
@@ -329,7 +329,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     }
     let L2_diag = [];
     for (let i = 0; i < L2.length; i++) {
-        L2_diag.push(new Array(L2.length))
+        L2_diag.push(new Array(L2.length));
     }
     for (let row = 0; row < L2_diag.length; row++) {
         for (let column = 0; column < L2_diag.length; column++) {
@@ -342,10 +342,11 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         }
     }
 
-    let L1_diag = [];
-    for (let i = 0; i < L1.length; i++) {
-        L1_diag.push(new Array(L1.length))
-    }
+    // let L1_diag = [];
+    // for (let i = 0; i < L1.length; i++) {
+    //     L1_diag.push(new Array(L1.length));
+    // }
+    let L1_diag = [...new Array(L1.length)].map(() => new Array(L1.length));
 
     for (let row = 0; row < L1_diag.length; row++) {
         for (let column = 0; column < L1_diag.length; column++) {
@@ -358,10 +359,11 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         }
     }
 
-    let diffop = [];
-    for (let i = 0; i < L1.length; i++) {
-        diffop.push(new Array(L1.length))
-    }
+    // let diffop = [];
+    // for (let i = 0; i < L1.length; i++) {
+    //     diffop.push(new Array(L1.length));
+    // }
+    let diffop = [...new Array(L1.length)].map(() => new Array(L1.length));
 
     for (let row = 0; row < L1.length; row++) {
         for (let column = 0; column < L1.length; column++) {
@@ -370,29 +372,32 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     }
 
     let S = x.map(function (entry) {
-        return S0 - S2 * Math.pow(entry, 2)
+        return S0 - S2 * Math.pow(entry, 2);
     })
     let aw = x.map(function (entry) {
-        return a0 - a2 * Math.pow(entry, 2)
+        return a0 - a2 * Math.pow(entry, 2);
     })
 
-    let T = new Array(x.length).fill(10)
-    let allT = [];
-    for (let i = 0; i < dur * nt; i++) {
-        allT.push(new Array(n))
-    }
+    let T = new Array(x.length).fill(10),
+        allT = [...new Array(dur * nt)].map(() => new Array(n));
+    // allT = [];
+    // for (let i = 0; i < dur * nt; i++) {
+    //     allT.push(new Array(n));
+    // }
+
     for (let row = 0; row < dur * nt; row++) {
         for (let column = 0; column < n; column++) {
             allT[row][column] = 1;
             allT[row][column] = 0;
         }
     }
-    let t = linespace(0, dur, Math.round(dur * nt));
+    let t = linespace(0, dur, Math.round(dur * nt)),
+        I = [...new Array(n)].map(() => new Array(n));
+    // let I = []; // Identity
+    // for (let i = 0; i < n; i++) {
+    //     I.push(new Array(n));
+    // }
 
-    let I = []; // Identity
-    for (let i = 0; i < n; i++) {
-        I.push(new Array(n));
-    }
     for (let row = 0; row < n; row++) {
         for (let column = 0; column < n; column++) {
             I[row][column] = 1;
@@ -403,10 +408,11 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     }
 
     /* I+dt/cw*(B*I-diffop) */
-    let BI = [];
-    for (let i = 0; i < I.length; i++) {
-        BI.push(new Array(I.length));
-    }
+    let BI = [...new Array(n)].map(() => new Array(n));
+    // let BI = [];
+    // for (let i = 0; i < I.length; i++) {
+    //     BI.push(new Array(I.length));
+    // }
 
     for (let row = 0; row < I.length; row++) {
         for (let column = 0; column < I.length; column++) {
@@ -420,10 +426,11 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     }
 
     // I+dt/cw*(BI-diffop)
-    let BIdiffop = []
-    for (let i = 0; i < I.length; i++) {
-        BIdiffop.push(new Array(I.length));
-    }
+    let BIdiffop = [...new Array(n)].map(() => new Array(n));
+    // let BIdiffop = []
+    // for (let i = 0; i < I.length; i++) {
+    //     BIdiffop.push(new Array(I.length));
+    // }
 
     //BIdiffop = I+dt/cw*(BI-diffop)
     for (let row = 0; row < BIdiffop.length; row++) {
@@ -468,18 +475,18 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
         //python:  T0 = T+dt/cw*C
         let T0 = C.map(function (entry) {
-            return dt / cw * entry
+            return dt / cw * entry;
         }).map(function (entry, index) {
-            return entry + T[index]
+            return entry + T[index];
         })
 
         // Governing equation [cf. WE15, eq. (2)]:
         // T(n+1) = T(n) + dt*(dT(n+1)/dt), with c_w*dT/dt=(C-B*T+diffop*T)
         // -> T(n+1) = T(n) + dt/cw*[C-B*T(n+1)+diff_op*T(n+1)]
         // -> T(n+1) = inv[1+dt/cw*(1+B-diff_op)]*(T(n)+dt/cw*C)
-        T = multiply(invMat, T0)
+        T = multiply(invMat, T0);
         allT[i] = allT[i].map(function (entry, index) {
-            return T[index]
+            return T[index];
         })
 
     }
@@ -497,10 +504,10 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 /* SCALE TO HAVE LATITUDE DATA FROM -82 TP +82 */
 function scaleTEBMResults(data) {
     let invx = data['x'].map(function (entry) {
-        return entry
+        return entry;
     })
     data['x'].map(function (entry, index) {
-        invx.unshift(-entry)
+        invx.unshift(-entry);
     })
 
     let invT = data["T"]
@@ -1424,14 +1431,14 @@ function complex_ebm_plot() {
             type: 'contour',
             name: 'surface enthalpy',
             // colorbar: {
-            //     title: '$E(Jm^{-1})$',
+            //     title: '$E(Jm^{-2})$',
             //     titleside: 'right',
             //     titlefont: {
             //         size: 14,
             //     }
             // }
         }, iceEdgeLineData], {
-            title: 'a) Surface enthalpy (E(Jm^{-1}))',
+            title: 'a) Surface enthalpy (E(Jm^{-2}))',
             xaxis: {
                 title: {
                     text: 't (final year)',
