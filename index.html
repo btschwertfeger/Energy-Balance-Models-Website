@@ -2,7 +2,7 @@
     ########################################
     ## @author Benjamin Thomas Schwertfeger (July 2021)
     ## copyright by Benjamin Thomas Schwertfeger (July 2021)
-    ############ 
+    ############
 
     https://paleodyn.uni-bremen.de/study/MES/ebm/index.html
 -->
@@ -17,11 +17,11 @@
         <meta http-quiv="X-UA-Compatible" content="ie-edge">
         <title>Enegie Balance Models</title>
 
-        <link rel="stylesheet" href="css/format.css">
-        
+        <link rel="stylesheet" href="format.css">
+
         <!-- CALCULATION -->
         <script type="module" src="main_bundle.js"></script>
-        
+
         <!-- CHART JS  -->
         <script src='https://cdn.jsdelivr.net/npm/chart.js@3.3.1/dist/chart.min.js'> </script>
         <!-- PLOTLY -->
@@ -54,7 +54,7 @@
                 model is
                 developed that includes both latitudinal and seasonal
                 variations. The following EBM is a idealized representation
-                of 
+                of
                 sea ice and climate with seasonal and latitudinal variations
                 in
                 a global domain." <i>(Extraced from: Till J.W Wagner and Ian
@@ -72,7 +72,7 @@
             </p>
             <p class="p_information">
                 &emsp; ☞ Python source code: <a target="_blank"
-                    href="http://eisenman.ucsd.edu/code/python/EBM_simple_WE15.py">simple EBM</a>, 
+                    href="http://eisenman.ucsd.edu/code/python/EBM_simple_WE15.py">simple EBM</a>,
                     <a target="_blank"
                     href="http://eisenman.ucsd.edu/code/python/sea_ice_EBM_WE15.py">complex EBM</a>
             </p>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="tebm-input-section">
                         <div class="input-wrapper">
-                            <div>Latitude(s): 
+                            <div>Latitude(s):
                                     <select name="xlatitudes" id="xlatitudes-container" class="selection" onchange="window.updateTYPlot(this.value)"></select>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 min="0" max="1"
                                 step="0.01" value="0.6">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(A\)</div>
                                 <div id="A_sliderAmount" name="A_sliderAmount" class="slide-value">193</div>
@@ -159,7 +159,7 @@
                                 min="0" max="500"
                                 step="1" value="193">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(B\)</div>
                                 <div id="B_sliderAmount" name="B_sliderAmount" class="slide-value">2.1</div>
@@ -168,7 +168,7 @@
                                 min="0" max="10"
                                 step="0.1" value="2.1">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(cw\)</div>
                                 <div id="cw_sliderAmount" name="cw_sliderAmount" class="slide-value">9.8</div>
@@ -177,7 +177,7 @@
                                 min="0.1" max="50"
                                 step="0.1" value="9.8">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(S_0\)</div>
                                 <div id="S0_sliderAmount" name="S0_sliderAmount" class="slide-value">420</div>
@@ -186,7 +186,7 @@
                                 min="0" max="1000"
                                 step="1" value="420">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(S_2\)</div>
                                 <div id="S2_sliderAmount" name="S2_sliderAmount" class="slide-value">240</div>
@@ -195,7 +195,7 @@
                                 min="0" max="1000"
                                 step="1" value="240">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(A_0\)</div>
                                 <div id="a0_sliderAmount" name="a0_sliderAmount" class="slide-value">0.7</div>
@@ -204,7 +204,7 @@
                                 min="0" max="1"
                                 step="0.001" value="0.7">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(A_2\)</div>
                                 <div id="a2_sliderAmount" name="a2_sliderAmount" class="slide-value">0.1</div>
@@ -213,7 +213,7 @@
                                 min="0" max="1"
                                 step="0.001" value="0.1">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(\alpha_i\)</div>
                                 <div id="ai_sliderAmount" name="ai_sliderAmount" class="slide-value">0.4</div>
@@ -222,7 +222,7 @@
                                 min="0" max="1"
                                 step="0.001" value="0.4">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(F\) </div>
                                 <div id="F_sliderAmount" name="F_sliderAmount" class="slide-value">0.0</div>
@@ -231,7 +231,7 @@
                                 min="0" max="4"
                                 step="0.05" value="0.0">
                             </div>
-        
+
                             <div class="input-wrapper">
                                 <div>\(\gamma\)</div>
                                 <div id="gamma_sliderAmount" name="gamma_sliderAmount" class="slide-value">1</div>
@@ -246,12 +246,12 @@
                         </div>
                     </div>
 
-                </div>                
+                </div>
             </div>
         </div> <!-- END SIMPLE TEBM -->
-        
+
         <div class="between-placeholder" style="height: 100px;"></div>
-        
+
         <!--  BEGIN COMPLEX EBM -->
         <div class="complex-ebm-all" style="width:95%; margin: 0 auto;">
             <div id="complex_ebm_headline" style="text-align:center;">
@@ -261,7 +261,7 @@
                 <p class="p_information">
                 "This model is an idealized representation of sea ice and climate with seasonal and latitudinal variations in a global domain. The surface is an aquaplanet with an ocean mixed layer that includes sea ice when conditions are sufficiently cold." <i>(paper p.3; Chapter 2)</i><br>
                 <br>
-                "Horizontal diffusion occurs in a <i>ghost layer</i> with heat capacity \(cg\), all other processes occur in the main layer, and the temperature of the ghost layer is relaxed toward the temperature of the main layer with time scale \(tg\). [...] the ghost layer does not represent a separate physical layer such as the atmosphere, which would add physical complexity to the mode." <i>(paper p.7; Chapter 2.e)</i> 
+                "Horizontal diffusion occurs in a <i>ghost layer</i> with heat capacity \(cg\), all other processes occur in the main layer, and the temperature of the ghost layer is relaxed toward the temperature of the main layer with time scale \(tg\). [...] the ghost layer does not represent a separate physical layer such as the atmosphere, which would add physical complexity to the mode." <i>(paper p.7; Chapter 2.e)</i>
                 </p>
             </div>
             <div class="complex-ebm-description" style="width:95%; margin:0 auto; padding:30px;">
@@ -275,7 +275,7 @@
                         <td>&emsp;&emsp;&emsp;</td>
                         <td>Coalbedo when there is sea ice:</td>
                         <td>\(\alpha_i\)</td>
-                        
+
                     </tr>
                     <tr>
                         <td>Insolation at equator:</td>
@@ -326,7 +326,7 @@
                         <td>&emsp;&emsp;&emsp;</td>
                         <td>Time of warmest \(T\):</td>
                         <td>\(T_{hot}\)</td>
-                    </tr> 
+                    </tr>
                     </tr>
                     <tr>
                         <td>Radiative forcing:</td>
@@ -341,85 +341,85 @@
             <!-- INPUT SECTION -->
             <div class="complex-ebm-input-section" style="width:95%; margin: 0px auto; text-align: center;">
                 <div class="complex-input-wrapper">
-                    \(D^*\): 
+                    \(D^*\):
                     <input id="complex_input_D" type="text" class="complex_ebm_input_field" value="0.6" />
                 </div>
                 <div class="complex-input-wrapper">
-                    \(A\): 
+                    \(A\):
                     <input id="complex_input_A" type="text" class="complex_ebm_input_field" value="193"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(\alpha_i\): 
+                    \(\alpha_i\):
                     <input id="complex_input_ai" type="text" class="complex_ebm_input_field" value="0.4"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(S_0\): 
+                    \(S_0\):
                     <input id="complex_input_S0" type="text" class="complex_ebm_input_field" value="420"></td>
                 </div>
 
 
 
                 <div class="complex-input-wrapper">
-                    \(B\): 
+                    \(B\):
                     <input id="complex_input_B" type="text" class="complex_ebm_input_field" value="2.1"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(c_g\): 
+                    \(c_g\):
                     <input id="complex_input_cg" type="text" class="complex_ebm_input_field" value="0.01"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(S^{*}_{1}\): 
+                    \(S^{*}_{1}\):
                     <input id="complex_input_S1" type="text" class="complex_ebm_input_field" value="338"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(c_w\): 
+                    \(c_w\):
                     <input id="complex_input_cw" type="text" class="complex_ebm_input_field" value="9.8"></td>
                 </div>
 
 
                 <div class="complex-input-wrapper">
-                    \(\tau_g\): 
+                    \(\tau_g\):
                     <input id="complex_input_tau" type="text" class="complex_ebm_input_field" value="0.00001"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(S_2\): 
+                    \(S_2\):
                     <input id="complex_input_S2" type="text" class="complex_ebm_input_field" value="240"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(F_b\): 
+                    \(F_b\):
                     <input id="complex_input_Fb" type="text" class="complex_ebm_input_field" value="4"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(yr\): 
+                    \(yr\):
                     <input id="complex_input_years" type="text" class="complex_ebm_input_field" value="30"></td>
                 </div>
 
 
 
                 <div class="complex-input-wrapper">
-                    \(A_0\): 
+                    \(A_0\):
                     <input id="complex_input_a0" type="text" class="complex_ebm_input_field" value="0.7"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(L_f\): 
+                    \(L_f\):
                     <input id="complex_input_Lf" type="text" class="complex_ebm_input_field" value="9.5"></td>
                 </div>
 
 
                 <div class="complex-input-wrapper">
-                    \(A_2\): 
+                    \(A_2\):
                     <input id="complex_input_a2" type="text" class="complex_ebm_input_field" value="0.1"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(K\): 
+                    \(K\):
                     <input id="complex_input_k" type="text" class="complex_ebm_input_field" value="2"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(T_{hot}\): 
+                    \(T_{hot}\):
                     <input id="complex_input_summer" type="text" class="complex_ebm_input_field" value="76"></td>
                 </div>
                 <div class="complex-input-wrapper">
-                    \(T_{cold}\): 
+                    \(T_{cold}\):
                     <input id="complex_input_winter" type="text" class="complex_ebm_input_field" value="26"></td>
                 </div>
 
@@ -429,7 +429,7 @@
                 </div>
                 <div id="complex_is_Running" style="color:red; display:none; margin-top:20px">please wait...<br>(this may take a few moments)</div>
             </div>
-            
+
 
             <div class="placeholder" style="height:55px;"></div>
             <!-- PLOTTING AREA -->
@@ -444,7 +444,7 @@
                 <div class="placeholder" style="height:15px;"></div>
                 <div id="complex_ebm_graphs" class="complex-ebm-4graphs-container">
                     <div class="complex-graph-row">
-                        <div class="col-left"> 
+                        <div class="col-left">
                             <div id ="complex_tsurf_graph_container"  class="complex-graph-container" >
                                 <canvas id="complex_tsurf_graph"></canvas>
                             </div>
@@ -468,7 +468,7 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
 
             <div id="complex_ebm_placeholder" style="height:50px;"></div>
             <!-- SOME INFORMATION ABOUT THIS EBM-->
@@ -476,11 +476,11 @@
                 <p class="p_information">
                     With default parameters the seasonal cycle of the equilibrated climate is plotted.<br><br>
                     (a) shows the seasonal cycle of \(E(t, x)\), which fully represents the model state since \(E\) is the only prognostic variable and the forcing varies seasonally.
-                    The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day climate observations in the Northern Hemisphere.  <br><br> 
-                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\) 
+                    The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day climate observations in the Northern Hemisphere.  <br><br>
+                    The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\)
                     indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\) represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of incident solar radiation \(S\) that is absorbed and not reflected to space (\(1-\alpha\)).
                     <br>
-                   <br> 
+                   <br>
                 </p>
                     <table style="width: 75%; margin: 0 auto;">
                         <tr>
@@ -504,20 +504,20 @@
                             <td>determines the equator-to-pole insolation gradient </td>
                         </tr>
                     </table>
-                    
+
                     <p class="p_information">
                         <br>
                     NOTE: Cloud cover and water vapor are not included in this idealized sea ice model.
                     </p>
             </div>
-            
+
             <script type="module" src="layout_scripts.js"></script>
         </div> <!-- END COMPLEX EBM -->
 
 
 
         <div id="placeholder" style="height: 50px;"></div>
-        <div id="footer" style="text-align:center; margin:0 auto; ">
+        <div id="footer" style="text-align:center; margin:0 auto; font-size: 16px;">
             <p> Mathematical basics described in <a href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"><i>"How Climate Model Complexity Influences Sea Ice Stability"</i></a> by Till J. W. Wagner and Ian Eisenman.<br>
                 JavaScript implementation with additional variations, and creation of this page by <a href="https://www.b-schwertfeger.de">Benjamin T. Schwertfeger</a> © 2021.</p>
         </div>
