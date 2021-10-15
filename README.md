@@ -1,6 +1,6 @@
 # Energy Balance Models - Website
 
-This website includes a simple and a more complex energy balance model. these can be run, then the results are visualized.
+This website includes a simple and a more complex energy balance model. These can be run, then the results are visualized.
 
 The aim is to make it easier for teachers and students to understand the processes involved in energy balance models and climate science content.
 
