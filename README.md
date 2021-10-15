@@ -9,4 +9,4 @@ and <a href="https://b-schwertfeger.de/projects/awi-work/ebm/index.html" target=
 
 ### Private notes:
 
-> sudo watchify main.js -o main_bundle.js
+1. sudo watchify main.js -o main_bundle.js
