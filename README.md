@@ -1,12 +1,12 @@
-# EnergyBalanceModelVisuals
+# Energy Balance Models - Website
 
-Website with some EBM to run and Display results.
-A website designed to enable people interested in climate modeling to understand the Daisyworld model.
+This website includes a simple and a more complex energy balance model. these can be run, then the results are visualized.
 
-Logic in main.js -> bundled in main_bundle.js with watchify to import this module in index.html.
+The aim is to make it easier for teachers and students to understand the processes involved in energy balance models and climate science content.
+
+This can be found here: [AWI](https://www.awi.de/fileadmin/user_upload/AWI/Forschung/Klimawissenschaft/Dynamik_des_Palaeoklimas/EnergyBalanceModels/index.html)
+and <a href="https://b-schwertfeger.de/projects/awi-work/ebm/index.html" target="_blank" >here</a> in case the first link does not work anymore.
+
+### Private notes:
 
 > sudo watchify main.js -o main_bundle.js
-
-
-This can be found here: https://www.awi.de/fileadmin/user_upload/AWI/Forschung/Klimawissenschaft/Dynamik_des_Palaeoklimas/EnergyBalanceModels/index.html
-and <a href="https://b-schwertfeger.de/projects/awi-work/ebm/index.html" target="_blank" >here</a> in case the first link does not work anymore.
