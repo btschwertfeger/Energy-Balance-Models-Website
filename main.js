@@ -9,12 +9,14 @@
 // This will be in main_bundle.js (->watchify main.js -o main_bundle.js)
 // ************
 */
+
 const {
     inv,
     multiply,
     transpose
 } = require("mathjs");
-const linear = require("/Users/benjamin/js_modules/gauss-jordan.js");
+const linear = require("/Users/benjamin/js_modules/myMath/gauss-jordan.js");
+
 /*###################################################################################################################################################*/
 /*###################################################################################################################################################*/
 /*###################################################################################################################################################*/
@@ -182,12 +184,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         }
     }
 
-    // let L1_diag = [];
-    // for (let i = 0; i < L1.length; i++) {
-    //     L1_diag.push(new Array(L1.length));
-    // }
     let L1_diag = [...new Array(L1.length)].map(() => new Array(L1.length));
-
     for (let row = 0; row < L1_diag.length; row++) {
         for (let column = 0; column < L1_diag.length; column++) {
             if (row === column + 1) {
@@ -199,12 +196,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         }
     }
 
-    // let diffop = [];
-    // for (let i = 0; i < L1.length; i++) {
-    //     diffop.push(new Array(L1.length));
-    // }
     let diffop = [...new Array(L1.length)].map(() => new Array(L1.length));
-
     for (let row = 0; row < L1.length; row++) {
         for (let column = 0; column < L1.length; column++) {
             diffop[row][column] = -L3_diag[row][column] - L2_diag[row][column] - L1_diag[row][column];
@@ -220,10 +212,6 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
     let T = new Array(x.length).fill(10),
         allT = [...new Array(dur * nt)].map(() => new Array(n));
-    // allT = [];
-    // for (let i = 0; i < dur * nt; i++) {
-    //     allT.push(new Array(n));
-    // }
 
     for (let row = 0; row < dur * nt; row++) {
         for (let column = 0; column < n; column++) {
@@ -233,10 +221,6 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     }
     let t = linespace(0, dur, Math.round(dur * nt)),
         I = [...new Array(n)].map(() => new Array(n));
-    // let I = []; // Identity
-    // for (let i = 0; i < n; i++) {
-    //     I.push(new Array(n));
-    // }
 
     for (let row = 0; row < n; row++) {
         for (let column = 0; column < n; column++) {
@@ -249,11 +233,6 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
     /* I+dt/cw*(B*I-diffop) */
     let BI = [...new Array(n)].map(() => new Array(n));
-    // let BI = [];
-    // for (let i = 0; i < I.length; i++) {
-    //     BI.push(new Array(I.length));
-    // }
-
     for (let row = 0; row < I.length; row++) {
         for (let column = 0; column < I.length; column++) {
             if (row == column) {
@@ -267,11 +246,6 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
     // I+dt/cw*(BI-diffop)
     let BIdiffop = [...new Array(n)].map(() => new Array(n));
-    // let BIdiffop = []
-    // for (let i = 0; i < I.length; i++) {
-    //     BIdiffop.push(new Array(I.length));
-    // }
-
     //BIdiffop = I+dt/cw*(BI-diffop)
     for (let row = 0; row < BIdiffop.length; row++) {
         for (let column = 0; column < BIdiffop.length; column++) {
@@ -328,7 +302,6 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         allT[i] = allT[i].map(function (entry, index) {
             return T[index];
         })
-
     }
 
     return {
@@ -341,7 +314,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
 
 /*#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-##-#-#-#-#-#*/
 
-/* SCALE TO HAVE LATITUDE DATA FROM -82 TP +82 */
+/* SCALE TO HAVE LATITUDE DATA FROM -82 TO +82 */
 function scaleTEBMResults(data) {
     let invx = data['x'].map(function (entry) {
         return entry;
@@ -366,22 +339,23 @@ function scaleTEBMResults(data) {
 window.last_TEBM_res = [];
 
 window.doTEBM = function doTEBM(TEBM_input_obj) {
-    let D = TEBM_input_obj['D'];
-    let A = TEBM_input_obj['A'];
-    let B = TEBM_input_obj['B'];
-    let cw = TEBM_input_obj['cw'];
-    let S0 = TEBM_input_obj['S0'];
-    let S2 = TEBM_input_obj['S2'];
-    let a0 = TEBM_input_obj['a0'];
-    let a2 = TEBM_input_obj['a2'];
-    let ai = TEBM_input_obj['ai'];
-    let F = TEBM_input_obj['F'];
-    let gamma = TEBM_input_obj['gamma'];
+    let
+        D = TEBM_input_obj['D'],
+        A = TEBM_input_obj['A'],
+        B = TEBM_input_obj['B'],
+        cw = TEBM_input_obj['cw'],
+        S0 = TEBM_input_obj['S0'],
+        S2 = TEBM_input_obj['S2'],
+        a0 = TEBM_input_obj['a0'],
+        a2 = TEBM_input_obj['a2'],
+        ai = TEBM_input_obj['ai'],
+        F = TEBM_input_obj['F'],
+        gamma = TEBM_input_obj['gamma'];
 
     let TEBM_res = calcTEBM(D, A, B, cw, S0, S2, a0, a2, ai, F, gamma);
     TEBM_res = scaleTEBMResults(TEBM_res);
     window.last_TEBM_res = TEBM_res;
-    updateTEBM_charts(); //TEBM_res['T'], TEBM_res['allT'])
+    updateTEBM_charts();
 }
 
 /*#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-##-#-#-#-#-#*/
@@ -389,11 +363,11 @@ window.doTEBM = function doTEBM(TEBM_input_obj) {
 /* UPDATES CHART AFTER SLIDER EVENT */
 function updateTEBM_charts() { //T, allT) {
     /* SIMPLE CHART */
-    let T = window.last_TEBM_res['T'];
-    let allT = window.last_TEBM_res['allT'];
-
-    let chart = window.tebm_chart;
-    let graphCount = chart.data.datasets.length;
+    let
+        T = window.last_TEBM_res['T'],
+        allT = window.last_TEBM_res['allT'],
+        chart = window.tebm_chart,
+        graphCount = chart.data.datasets.length;
 
     if (graphCount > (1 + window.added_tebm_graphs)) {
         chart.data.datasets.pop();
@@ -418,8 +392,9 @@ function updateTEBM_charts() { //T, allT) {
 }
 
 window.updateTYChart = function () {
-    let T = window.last_TEBM_res['T'];
-    let allT = window.last_TEBM_res['allT'];
+    let
+        T = window.last_TEBM_res['T'],
+        allT = window.last_TEBM_res['allT'];
     /* MULTICHART */
     let tebm_chart_all = window.tebm_chart_all;
 
@@ -713,10 +688,6 @@ window.default_TEBM_input = {
 /*###################################################################################################################################################*/
 /*###################################################################################################################################################*/
 /*###################################################################################################################################################*/
-/*###################################################################################################################################################*/
-/*###################################################################################################################################################*/
-/*###################################################################################################################################################*/
-/*###################################################################################################################################################*/
 /*####################################################### COMPLEX ####################################################################*/
 
 // D = 0.6 # diffusivity for heat transport (W m^-2 K^-1) | typical range: 0.44 - 0.66
@@ -784,13 +755,11 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
 
     cg *= cw;
     // #The default run in WE15, Fig 2 uses the time-stepping parameters: -------
-    // n=400; % # of evenly spaced latitudinal gridboxes (equator to pole)
-    // nt=1e3; % # of timesteps per year (approx lower limit of stability)
-    // dur=200; % # of years for the whole run
+    // n=400;  nt=1e3; dur=200; % #
     // #For a quicker computation, use the parameters: --------------------------
-    let n = 100;
-    let nt = 1e3;
-    let dur = years;
+    let n = 100; // evenly spaced latitudinal gridboxes (equator to pole)
+    let nt = 1e3; // of timesteps per year (approx lower limit of stability)
+    let dur = years; // pf years for the whole run
     let dt = 1 / nt;
     // Spatial Grid -------------------------------------------------------------
     let dx = 1.0 / n // grid box width
@@ -910,7 +879,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         }
     }
 
-    // ##Seasonal forcing (WE15 eq.3)
+    // Seasonal forcing (WE15 eq.3)
     let ty = range(dt / 2, 1 + dt / 2, dt)
 
     // S = (np.tile(S0-S2*x**2,[int(nt),1])- np.tile(S1*np.cos(2*np.pi*ty),[n,1]).T*np.tile(x,[int(nt),1]));
@@ -954,7 +923,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         }
     }
 
-    // ##Further definitions
+    // Further definitions
     let M = B + cg_tau;
     let aw = new Array(x.length);
     for (let i = 0; i < aw.length; i++) {
@@ -962,7 +931,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
     }
     let kLf = k * Lf;
 
-    // #Set up output arrays, saving 100 timesteps/year
+    // Set up output arrays, saving 100 timesteps/year
 
     let E100 = new Array(n);
     let T100 = new Array(n);
@@ -974,7 +943,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
     let p = -1;
     let m = -1;
 
-    // #Initial conditions ------------------------------------------------------
+    // Initial conditions ------------------------------------------------------
     let T = new Array(x.length);
     for (let i = 0; i < T.length; i++) {
         T[i] = 7.5 + 20 * (1 - 2 * Math.pow(x[i], 2));
@@ -988,14 +957,12 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         E[i] = T[i] * cw;
     }
 
-    // #Integration (see WE15_NumericIntegration.pdf)----------------------------
-    // #Loop over Years ---------------------------------------------------------
+    // Integration (see WE15_NumericIntegration.pdf)----------------------------
+    // Loop over Years ---------------------------------------------------------
     for (let year = 0; year < dur; year++) {
-        // #Loop within One Year-------------------------------------------------
-
         for (let i = 0; i < parseInt(nt); i++) {
             m = m + 1;
-            // #store 100 timesteps per year
+            // store 100 timesteps per year
             if ((p + 1) * 10 == m) {
                 p = p + 1;
             }
@@ -1004,7 +971,8 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
                 E100[row][p] = E[row];
                 T100[row][p] = T[row];
             }
-            // #forcing
+
+            // forcing
             let awE = new Array(E.length);
             for (let entry = 0; entry < awE.length; entry++) {
                 if (E[entry] > 0) {
@@ -1023,8 +991,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
                 }
             }
 
-
-            //in python: alpha = aw*(E>0) + ai*(E<0) #WE15, eq.4
+            // in python: alpha = aw*(E>0) + ai*(E<0) #WE15, eq.4
             let alpha = new Array(awE.length);
             for (let entry = 0; entry < alpha.length; entry++) {
                 alpha[entry] = awE[entry] + aiE[entry];
@@ -1035,16 +1002,15 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
                 C[entry] = alpha[entry] * S[i][entry] + cg_tau * Tg[entry] - A;
             }
 
-            // #surface temperature
+            // surface temperature
             // in python: T0 = C/(M-kLf/E) #WE15, eq.A3
-
             let T0 = new Array(C.length);
             for (let entry = 0; entry < T0.length; entry++) {
                 T0[entry] = C[entry] / (M - kLf / E[entry]);
             }
 
-            //in python: T = E/cw*(E>=0)+T0*(E<0)*(T0<0); #WE15, eq.9
-            //  EcsE0+T0ET0
+            // in python: T = E/cw*(E>=0)+T0*(E<0)*(T0<0); #WE15, eq.9
+            //  EcsE0 + T0ET0
             let EcwE0 = new Array(E.length);
             for (let entry = 0; entry < EcwE0.length; entry++) {
                 if (E[entry] >= 0) {
@@ -1067,13 +1033,13 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
                 T[entry] = EcwE0[entry] + T0ET0[entry];
             }
 
-            // #Forward Euler on E
+            // Forward Euler on E
             // in python: E = E+dt*(C-M*T+Fb); #WE15, eq.A2
             for (let entry = 0; entry < E.length; entry++) {
                 E[entry] = E[entry] + dt * (C[entry] - M * T[entry] + Fb);
             }
 
-            // #Implicit Euler on Tg
+            // Implicit Euler on Tg
             // in python: Tg = np.linalg.solve(kappa-np.diag(dc/(M-kLf/E)*(T0<0)*(E<0)), Tg+(dt_tau*(E/cw*(E>=0)+(ai*S[i,:]-A)/(M-kLf/E)*(T0<0)*(E<0))))
             // Tg = linear.solve(kappa-diag_dcMkLfET0E,Tg+(dt_tauEcwE+aiSA)/(MkLfET0E))
 
@@ -1110,7 +1076,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
                 }
             }
 
-            /*  SECOND PART OF SOLVER*/
+            /* SECOND PART OF SOLVER*/
             // Tg+(dt_tau*(E/cw*(E>=0)+(ai*S[i,:]-A)/(M-kLf/E)*(T0<0)*(E<0)))
             // Tg+(dt_tau*(EcwE0+(aiSA)/(MkLfET0E0)))
             let EcwE0_ = new Array(E.length);
@@ -1158,8 +1124,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         }
     }
 
-
-    // #output only converged, final year
+    // output only converged, final year
     let tfin = linespace(0, 1, 100);
     let Efin = new Array(E100.length);
     let Tfin = new Array(E100.length);
@@ -1167,6 +1132,7 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         Efin[entry] = new Array(E100.length);
         Tfin[entry] = new Array(E100.length);
     }
+
     // final year = dur*entriesPerYear-entriesPerYear
     //  e.g.: 30years*100timesteps = 3000timesteps 
     //  => 3000timesteps - 100timesteps=> timestep 2900 is the beginning of the final year
@@ -1179,9 +1145,9 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         }
     }
 
-    // # ------------------------------------------------------------------------
-    // #WE15, Figure 2: Default Steady State Climatology ------------------------
-    // # ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
+    // WE15, Figure 2: Default Steady State Climatology ------------------------
+    // ------------------------------------------------------------------------
 
     // #compute seasonal ice edge
     let xi = new Array(100);
@@ -1204,16 +1170,6 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
             xi[j] = Math.max(x);
         }
     }
-    // console.log("x: "+ x);
-    // console.log("xi: " + xi);
-    // console.log("tfin: " + tfin);
-    // console.log("Tfin: ");
-    // console.log(Tfin);
-    // console.log("Efin: ");
-    // console.log(Efin);
-    // console.log("Lf: " + Lf);
-    // console.log("winter: " + winter);
-    // console.log("summer: " + summer);
 
     return {
         'x': x,
@@ -1225,7 +1181,6 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
         'winter': winter,
         'summer': summer
     };
-
 }
 
 /*
@@ -1236,14 +1191,15 @@ function calculate_complex_ebm(D = 0.6, S1 = 338, A = 193, B = 2.1, cw = 9.8, S0
 */
 
 function complex_ebm_plot() {
-    let x = window.complex_ebm_result['x'];
-    let xi = window.complex_ebm_result['xi'];
-    let tfin = window.complex_ebm_result['tfin'];
-    let Tfin = window.complex_ebm_result['Tfin'];
-    let Efin = window.complex_ebm_result['Efin']
-    let Lf = window.complex_ebm_result['Lf']
-    let winter = window.complex_ebm_result['winter']
-    let summer = window.complex_ebm_result['summer']
+    let
+        x = window.complex_ebm_result['x'],
+        xi = window.complex_ebm_result['xi'],
+        tfin = window.complex_ebm_result['tfin'],
+        Tfin = window.complex_ebm_result['Tfin'],
+        Efin = window.complex_ebm_result['Efin'],
+        Lf = window.complex_ebm_result['Lf'],
+        winter = window.complex_ebm_result['winter'],
+        summer = window.complex_ebm_result['summer'];
 
     const LAT_LABELS_contour = x.map(function (entry) {
         return Math.asin(entry) * (180 / Math.PI);
@@ -1262,7 +1218,7 @@ function complex_ebm_plot() {
         name: 'ice edge'
     };
 
-    /* a) SEASONAL SURFACE ENTHALPY PLOT FINAL YEAR*/
+    /* a) SEASONAL SURFACE ENTHALPY PLOT FINAL YEAR */
     Plotly.newPlot('complex_ebm_seas_enthalpy_plot',
         [{
             z: Efin,
@@ -1302,7 +1258,8 @@ function complex_ebm_plot() {
                 showticklabels: false
             }
         });
-    /* b) SEASONAL Temperature PLOT FINAL YEAR*/
+
+    /* b) SEASONAL Temperature PLOT FINAL YEAR */
     Plotly.newPlot('complex_ebm_seas_T_plot',
         [{
             z: Tfin,
@@ -1337,7 +1294,7 @@ function complex_ebm_plot() {
         }
     );
 
-    /* c) SEASONAL SEA ICE THICKNESS PLOT FINAL YEAR*/
+    /* c) SEASONAL SEA ICE THICKNESS PLOT FINAL YEAR */
     let hfin = new Array(Efin.length);
     for (let row = 0; row < hfin.length; row++) {
         hfin[row] = new Array(hfin.length);
@@ -1420,7 +1377,6 @@ function complex_ebm_plot() {
             }]
         }
     );
-
 
     // ##################################################################################################
     /* d) SURFACE TEMPERATURE FINAL YEAR */
@@ -1625,7 +1581,6 @@ function complex_ebm_plot() {
                 intersect: false,
                 axis: 'x'
             }
-
         }
     });
 
@@ -1667,11 +1622,11 @@ function complex_ebm_plot() {
                     font: {
                         Family: 'Helvetica',
                         size: 18
-                    }
+                    },
                 },
                 legend: {
                     display: false,
-                }
+                },
             },
             scales: {
                 x: {
@@ -1682,7 +1637,7 @@ function complex_ebm_plot() {
                         font: {
                             family: 'Helvetica',
                             size: 16,
-                        }
+                        },
                     },
                 },
                 y: {
@@ -1693,9 +1648,9 @@ function complex_ebm_plot() {
                         font: {
                             family: 'Helvetica',
                             size: 16
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             },
             animations: {
                 radius: {
@@ -1710,9 +1665,8 @@ function complex_ebm_plot() {
                 mode: 'nearest',
                 intersect: false,
                 axis: 'x'
-            }
-
-        }
+            },
+        },
     });
     // ###############################################################
     /* g) SEASONAL CYCLE OF THE LAT OF SEA ICE EDGE */
@@ -1747,14 +1701,13 @@ function complex_ebm_plot() {
                     font: {
                         Family: 'Helvetica',
                         size: 18
-                    }
+                    },
                 },
                 legend: {
                     display: false,
                     position: 'top',
-                }
+                },
             },
-
             scales: {
                 x: {
                     display: true,
@@ -1764,14 +1717,13 @@ function complex_ebm_plot() {
                         font: {
                             family: 'Helvetica',
                             size: 16,
-                        }
+                        },
                     },
                     ticks: {
                         callback: function (value, index, values) {
                             return Math.round(value) / 100;
-                        }
-                    }
-
+                        },
+                    },
                 },
                 y: {
                     display: true,
@@ -1781,7 +1733,7 @@ function complex_ebm_plot() {
                         font: {
                             family: 'Helvetica',
                             size: 16
-                        }
+                        },
                     },
                 },
             },
@@ -1790,7 +1742,7 @@ function complex_ebm_plot() {
                     duration: 400,
                     easing: 'linear',
                     loop: (ctx) => ctx.activate
-                }
+                },
             },
             hoverRadius: 6,
             hoverBackgroundColor: 'yellow',
@@ -1798,10 +1750,10 @@ function complex_ebm_plot() {
                 mode: 'nearest',
                 intersect: false,
                 axis: 'x'
-            }
-        }
+            },
+        },
     });
-}
+};
 
 /*
 ################################################################################################################################
