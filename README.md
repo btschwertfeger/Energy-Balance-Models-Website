@@ -1,12 +1,12 @@
 # Energy Balance Models - Website
 
-This website includes a simple and a more complex energy balance model. These can be run, then the results are visualized.
+This website includes a simple temperature and a more complex aqua-planet energy balance model. These can be run, then the results are visualized.
 
-The aim is to make it easier for teachers and students to understand the processes involved in energy balance models and climate science content.
+The goal is to visually represent complex interrelationships by means of simple inputs without programming experience.
 
-This can be found here: [AWI](https://www.awi.de/fileadmin/user_upload/AWI/Forschung/Klimawissenschaft/Dynamik_des_Palaeoklimas/EnergyBalanceModels/index.html)
-and <a href="https://b-schwertfeger.de/projects/awi-work/EnergyBalanceModels/" target="_blank" >here</a> in case the first link does not work anymore.
+![temperature energy balance model](images/tebm.png)
+![complex energy balance model](images/iebm.png)
 
-### Private notes:
+## Availability
 
-1. sudo watchify main.js -o main_bundle.js
+This can be found here: [AWI](https://www.awi.de/fileadmin/user_upload/AWI/Forschung/Klimawissenschaft/Dynamik_des_Palaeoklimas/EnergyBalanceModels/index.html) and <a href="https://b-schwertfeger.de/projects/awi-work/EnergyBalanceModels/" target="_blank" >here</a> in case the first link does not work anymore.

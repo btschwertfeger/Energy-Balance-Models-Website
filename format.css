@@ -44,6 +44,14 @@ a:visited {
 a:hover {
   color: red;
 }
+#footer a {
+  color: black;
+}
+
+#footer a:hover,
+a:hover {
+  color: red;
+}
 canvas{
   width: 91%;
   height: 100%;

@@ -133,51 +133,46 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     });
 
     // Diffusion Operator (WE15, Appendix A) -----------------------------------
-    let lam = xb.map(function (entry) {
+    let lam = xb.map((entry) => {
         return 1 - Math.pow(entry, 2)
-    }).map(function (entry) {
+    }).map((entry) => {
         return entry * D / Math.pow(dx, 2);
     })
 
     let L1 = [];
     L1.push(0);
-    lam.map(function (entry) {
+    lam.map((entry) => {
         L1.push(Math.round(entry * -1 * 100) / 100);
     });
     let L2 = [];
-    lam.map(function (entry) {
+    lam.map((entry) => {
         L2.push(Math.round(entry * -1 * 100) / 100);
     });
     L2.push(0);
     let L3 = new Array(L1.length);
-    for (var i = 0; i < L3.length; i++) {
-        L3[i] = L1[i] * -1 - L2[i];
-    };
+    for (var i = 0; i < L3.length; i++) L3[i] = L1[i] * -1 - L2[i];
+
 
     let L3_diag = [];
-    for (let i = 0; i < L3.length; i++) {
-        L3_diag.push(new Array(L3.length));
-    }
+    for (let i = 0; i < L3.length; i++) L3_diag.push(new Array(L3.length));
+
 
     for (let row = 0; row < L3_diag.length; row++) {
         for (let column = 0; column < L3_diag.length; column++) {
-            if (row === column) {
-                L3_diag[row][column] = L3[row];
-            } else {
+            if (row === column) L3_diag[row][column] = L3[row];
+            else {
                 L3_diag[row][column] = 1;
                 L3_diag[row][column] = 0;
             }
         }
     }
     let L2_diag = [];
-    for (let i = 0; i < L2.length; i++) {
-        L2_diag.push(new Array(L2.length));
-    }
+    for (let i = 0; i < L2.length; i++) L2_diag.push(new Array(L2.length));
+
     for (let row = 0; row < L2_diag.length; row++) {
         for (let column = 0; column < L2_diag.length; column++) {
-            if (row + 1 === column) {
-                L2_diag[row][column] = L2[row];
-            } else {
+            if (row + 1 === column) L2_diag[row][column] = L2[row];
+            else {
                 L2_diag[row][column] = 1;
                 L2_diag[row][column] = 0;
             }
@@ -187,9 +182,8 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     let L1_diag = [...new Array(L1.length)].map(() => new Array(L1.length));
     for (let row = 0; row < L1_diag.length; row++) {
         for (let column = 0; column < L1_diag.length; column++) {
-            if (row === column + 1) {
-                L1_diag[row][column] = L1[row];
-            } else {
+            if (row === column + 1) L1_diag[row][column] = L1[row];
+            else {
                 L1_diag[row][column] = 1;
                 L1_diag[row][column] = 0;
             }
@@ -203,10 +197,10 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         }
     }
 
-    let S = x.map(function (entry) {
+    let S = x.map((entry) => {
         return S0 - S2 * Math.pow(entry, 2);
     })
-    let aw = x.map(function (entry) {
+    let aw = x.map((entry) => {
         return a0 - a2 * Math.pow(entry, 2);
     })
 
@@ -225,9 +219,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     for (let row = 0; row < n; row++) {
         for (let column = 0; column < n; column++) {
             I[row][column] = 1;
-            if (row != column) {
-                I[row][column] = 0;
-            }
+            if (row != column) I[row][column] = 0;
         }
     }
 
@@ -235,9 +227,8 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     let BI = [...new Array(n)].map(() => new Array(n));
     for (let row = 0; row < I.length; row++) {
         for (let column = 0; column < I.length; column++) {
-            if (row == column) {
-                BI[row][column] = B;
-            } else {
+            if (row == column) BI[row][column] = B;
+            else {
                 BI[row][column] = 1;
                 BI[row][column] = 0;
             }
@@ -251,9 +242,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         for (let column = 0; column < BIdiffop.length; column++) {
             BIdiffop[row][column] = BI[row][column] - diffop[row][column];
             BIdiffop[row][column] = BIdiffop[row][column] * (dt / cw);
-            if (row == column) {
-                BIdiffop[row][column] += I[row][column];
-            }
+            if (row == column) BIdiffop[row][column] += I[row][column];
         }
     }
 
@@ -262,33 +251,27 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
     // LOOP OVER THE YEARS
     for (let i = 0; i < parseInt(dur * nt); i++) {
         //python: a = aw*(T>0)+ai*(T<0) # WE15, eq.4 
-        let awT = aw.map(function (entry, index) {
-            if (T[index] > 0) {
-                return entry;
-            } else {
-                return 0;
-            }
+        let awT = aw.map((entry, index) => {
+            if (T[index] > 0) return entry;
+            else return 0;
         })
 
-        let aiT = T.map(function (entry, index) {
-            if (entry < 0) {
-                return ai;
-            } else {
-                return 0;
-            }
+        let aiT = T.map((entry, index) => {
+            if (entry < 0) return ai;
+            else return 0;
         });
 
-        let a = awT.map(function (entry, index) {
+        let a = awT.map((entry, index) => {
             return entry + aiT[index];
         })
 
         //python: C = a*S-A+F 
-        let C = a.map(function (entry, index) {
+        let C = a.map((entry, index) => {
             return entry * S[index] - (gamma * A) + F;
         })
 
         //python:  T0 = T+dt/cw*C
-        let T0 = C.map(function (entry) {
+        let T0 = C.map((entry) => {
             return dt / cw * entry;
         }).map(function (entry, index) {
             return entry + T[index];
@@ -299,7 +282,7 @@ function calcTEBM(D = 0.6, A = 193, B = 2.1, cw = 9.8, S0 = 420, S2 = 240, a0 = 
         // -> T(n+1) = T(n) + dt/cw*[C-B*T(n+1)+diff_op*T(n+1)]
         // -> T(n+1) = inv[1+dt/cw*(1+B-diff_op)]*(T(n)+dt/cw*C)
         T = multiply(invMat, T0);
-        allT[i] = allT[i].map(function (entry, index) {
+        allT[i] = allT[i].map((entry, index) => {
             return T[index];
         })
     }
@@ -383,9 +366,9 @@ function updateTEBM_charts() { //T, allT) {
         pointRadius: 0
     });
 
-    if (chart.data.datasets.length > 7) {
+    if (chart.data.datasets.length > 7)
         chart.options.plugins.legend.position = 'left';
-    }
+
 
     chart.update();
     window.updateTYChart();
@@ -426,11 +409,9 @@ window.updateTYChart = function () {
             pointRadius: 0
         })
     }
-    if (window.activeLatitudes.length < 7) {
-        tebm_chart_all.options.plugins.legend.display = true;
-    } else {
-        tebm_chart_all.options.plugins.legend.display = false;
-    }
+    if (window.activeLatitudes.length < 7) tebm_chart_all.options.plugins.legend.display = true;
+    else tebm_chart_all.options.plugins.legend.display = false;
+
     tebm_chart_all.data.datasets = DATASETS_allT;
     tebm_chart_all.update();
 }
