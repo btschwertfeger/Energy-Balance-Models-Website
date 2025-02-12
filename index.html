@@ -7,525 +7,853 @@
     https://paleodyn.uni-bremen.de/study/MES/ebm/index.html
 -->
 
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-quiv="X-UA-Compatible" content="ie-edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-quiv="X-UA-Compatible" content="ie-edge" />
     <!-- <link rel="icon" type="image/x-icon"
         href="https://www.awi.de/typo3conf/ext/sms_boilerplate/Resources/Public/Images/AWI/awi_logo.svg"> -->
 
-    <title>Enegie Balance Models</title>
+    <title>Energy Balance Models</title>
 
-    <link rel="stylesheet" href="format.css">
+    <link rel="stylesheet" href="css/styles.css" />
 
     <!-- CALCULATION -->
-    <script type="module" src="main_bundle.js"></script>
+    <script type="module" src="js/main_bundle.js"></script>
 
     <!-- CHART JS  -->
-    <script src='https://cdn.jsdelivr.net/npm/chart.js@3.3.1/dist/chart.min.js'> </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.1/dist/chart.min.js"></script>
     <!-- PLOTLY -->
     <script src="https://cdn.plot.ly/plotly-2.0.0-rc.3.min.js"></script>
     <!-- to display mathematical equations-->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <!-- <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'></script> -->
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+  </head>
 
-<body>
+  <body>
     <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/AWI_Logo_2017.svg"
         style="position:absolute; right: 10px; top: 10px; width: 15%;" \> -->
 
-    <div id="Headline" style="margin:auto; padding:10px; text-align:center;">
-        <h1>Energy balance models</h1>
+    <div id="Headline" style="margin: auto; padding: 10px; text-align: center">
+      <h1>Energy balance models</h1>
     </div>
     <div>
-        <p class="p_information">
-            "Previous studies identified instabilities for a shrinking
-            ice
-            cover in two types of idealized climate models: (i)
-            annual-mean
-            latitudinally varying diffusive energy balance models (EBMs)
-            and
-            (ii) seasonally varying single-column models (SCMs). The
-            instabilities in these low-order models stand in contrast
-            with
-            results from compre- hensive global climate models (GCMs),
-            which
-            typically do not simulate any such instability. To help
-            bridge
-            the gap between low-order models and GCMs, an idealized
-            model is
-            developed that includes both latitudinal and seasonal
-            variations. The following EBM is a idealized representation
-            of
-            sea ice and climate with seasonal and latitudinal variations
-            in
-            a global domain." <i>(Extraced from: Till J.W Wagner and Ian
-                Eisenman, "How Climate Model Complexity Influences Sea
-                Ice
-                Stability" (2015) p.2 Abstract)</i>
-            For simplicity, I will call the paper "paper" so that I can refer to it more easily on this page.
+      <p class="p_information">
+        "Previous studies identified instabilities for a shrinking ice cover in
+        two types of idealized climate models: (i) annual-mean latitudinally
+        varying diffusive energy balance models (EBMs) and (ii) seasonally
+        varying single-column models (SCMs). The instabilities in these
+        low-order models stand in contrast with results from comprehensive
+        global climate models (GCMs), which typically do not simulate any such
+        instability. To help bridge the gap between low-order models and GCMs,
+        an idealized model is developed that includes both latitudinal and
+        seasonal variations. The following EBM is a idealized representation of
+        sea ice and climate with seasonal and latitudinal variations in a global
+        domain."
+        <i
+          >(Extracted from: Till J.W Wagner and Ian Eisenman, "How Climate Model
+          Complexity Influences Sea Ice Stability" (2015) p.2 Abstract)</i
+        >
+        For simplicity, I will call the paper "paper" so that I can refer to it
+        more easily on this page.
 
-            <br><br>
-        </p>
-        <p class="p_information">
-            &emsp; ☞ <a target="_blank"
-                href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability">Paper
-                and Documentation</a>
-        </p>
-        <p class="p_information">
-            &emsp; ☞ Python source code: <a target="_blank"
-                href="http://eisenman.ucsd.edu/code/python/EBM_simple_WE15.py">simple EBM</a>,
-            <a target="_blank" href="http://eisenman.ucsd.edu/code/python/sea_ice_EBM_WE15.py">complex EBM</a>
-        </p>
+        <br /><br />
+      </p>
+      <p class="p_information">
+        &emsp; ☞
+        <a
+          target="_blank"
+          href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"
+          >Paper and Documentation</a
+        >
+      </p>
+      <p class="p_information">
+        &emsp; ☞ Python source code:
+        <a
+          target="_blank"
+          href="http://eisenman.ucsd.edu/code/python/EBM_simple_WE15.py"
+          >simple EBM</a
+        >,
+        <a
+          target="_blank"
+          href="http://eisenman.ucsd.edu/code/python/sea_ice_EBM_WE15.py"
+          >complex EBM</a
+        >
+      </p>
     </div>
-    <div class="placeholder" style="width:100%;height:67px;"></div>
+    <div class="placeholder" style="width: 100%; height: 67px"></div>
 
     <!-- BEGIN SIMPLE EBM -->
-    <div class="tebm-all" style="width:95%; margin: 0 auto;">
-        <div id="tebm_headline" style="padding:10px; text-align:center;">
-            <h2>Temperature EBM</h2>
-        </div>
-        <div class="tebm-description" style="padding:30px;">
-            <table style="margin: 0 auto; width: 95%;">
-                <tr>
-                    <td>Diffusy for heat transport: </td>
-                    <td>\(D^*=Wm^{-2}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>OLR when \(T=T_m\):</td>
-                    <td>\(A=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>OLR temperature dependence:</td>
-                    <td>\(B=Wm^{-2}K^{-1}\)</td>
-                </tr>
-                <tr>
-                    <td>Ocean mixed layer heat capacity:</td>
-                    <td>\(cw=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Insolation at equator:</td>
-                    <td>\(S_0=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Insolation spatial dependence:</td>
-                    <td>\(S_2=Wm^{-2}\)</td>
-                </tr>
-                <tr>
-                    <td>Ice-free coalbedo at equator:</td>
-                    <td>\(A_0\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Ice-free coalbedo spatial dependence:</td>
-                    <td>\(A_2\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Coalbedo when there is sea ice:</td>
-                    <td>\(\alpha_i\)</td>
-                </tr>
-                <tr>
-                    <td>Radiative forcing:</td>
-                    <td>\(F=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Gamma:</td>
-                    <td>\(\gamma\)</td>
-                </tr>
-            </table>
-        </div>
+    <div class="tebm-all" style="width: 95%; margin: 0 auto">
+      <div id="tebm_headline" style="padding: 10px; text-align: center">
+        <h2>Temperature EBM</h2>
+      </div>
+      <div class="tebm-description" style="padding: 30px">
+        <table style="margin: 0 auto; width: 95%">
+          <tr>
+            <td>Diffusy for heat transport:</td>
+            <td>\(D^*=Wm^{-2}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>OLR when \(T=T_m\):</td>
+            <td>\(A=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>OLR temperature dependence:</td>
+            <td>\(B=Wm^{-2}K^{-1}\)</td>
+          </tr>
+          <tr>
+            <td>Ocean mixed layer heat capacity:</td>
+            <td>\(cw=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Insolation at equator:</td>
+            <td>\(S_0=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Insolation spatial dependence:</td>
+            <td>\(S_2=Wm^{-2}\)</td>
+          </tr>
+          <tr>
+            <td>Ice-free coalbedo at equator:</td>
+            <td>\(A_0\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Ice-free coalbedo spatial dependence:</td>
+            <td>\(A_2\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Coalbedo when there is sea ice:</td>
+            <td>\(\alpha_i\)</td>
+          </tr>
+          <tr>
+            <td>Radiative forcing:</td>
+            <td>\(F=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Gamma:</td>
+            <td>\(\gamma\)</td>
+          </tr>
+        </table>
+      </div>
 
-        <div id="tebm_content_wrapper" class="tebm-content-wrapper">
-            <div id="tebm_content" class="tebm-content">
-                <div class="tebm-plot-container">
-                    <div id="tebm_all_graphs_container" class="ebm-all-graphs-container">
-                        <canvas id="tempEBMchart_all"></canvas>
-                    </div>
-                    <div id="graph-container" class="tebm-graph-container">
-                        <canvas id="tempEBMchart"></canvas>
-                    </div>
-                </div>
-                <div class="tebm-input-section">
-                    <div class="input-wrapper">
-                        <div>Latitude(s):
-                            <select name="xlatitudes" id="xlatitudes-container" class="selection"
-                                onchange="window.updateTYPlot(this.value)"></select>
-                        </div>
-                    </div>
-                    <div class="input-wrapper">
-                        <div>\(D^*\)</div>
-                        <div id="D_sliderAmount" name="D_sliderAmount" class="slide-value">0.6</div>
-                        <input id="D_slide" type="range" class="slide" name="tebm_slider" min="0" max="1" step="0.01"
-                            value="0.6">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(A\)</div>
-                        <div id="A_sliderAmount" name="A_sliderAmount" class="slide-value">193</div>
-                        <input id="A_slide" type="range" class="slide" name="tebm_slider" min="0" max="500" step="1"
-                            value="193">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(B\)</div>
-                        <div id="B_sliderAmount" name="B_sliderAmount" class="slide-value">2.1</div>
-                        <input id="B_slide" type="range" class="slide" name="tebm_slider" min="0" max="10" step="0.1"
-                            value="2.1">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(cw\)</div>
-                        <div id="cw_sliderAmount" name="cw_sliderAmount" class="slide-value">9.8</div>
-                        <input id="cw_slide" type="range" class="slide" name="tebm_slider" min="0.1" max="50" step="0.1"
-                            value="9.8">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(S_0\)</div>
-                        <div id="S0_sliderAmount" name="S0_sliderAmount" class="slide-value">420</div>
-                        <input id="S0_slide" type="range" class="slide" name="tebm_slider" min="0" max="1000" step="1"
-                            value="420">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(S_2\)</div>
-                        <div id="S2_sliderAmount" name="S2_sliderAmount" class="slide-value">240</div>
-                        <input id="S2_slide" type="range" class="slide" name="tebm_slider" min="0" max="1000" step="1"
-                            value="240">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(A_0\)</div>
-                        <div id="a0_sliderAmount" name="a0_sliderAmount" class="slide-value">0.7</div>
-                        <input id="a0_slide" type="range" class="slide" name="tebm_slider" min="0" max="1" step="0.001"
-                            value="0.7">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(A_2\)</div>
-                        <div id="a2_sliderAmount" name="a2_sliderAmount" class="slide-value">0.1</div>
-                        <input id="a2_slide" type="range" class="slide" name="tebm_slider" min="0" max="1" step="0.001"
-                            value="0.1">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(\alpha_i\)</div>
-                        <div id="ai_sliderAmount" name="ai_sliderAmount" class="slide-value">0.4</div>
-                        <input id="ai_slide" type="range" class="slide" name="tebm_slider" min="0" max="1" step="0.001"
-                            value="0.4">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(F\) </div>
-                        <div id="F_sliderAmount" name="F_sliderAmount" class="slide-value">0.0</div>
-                        <input id="F_slide" type="range" class="slide" name="tebm_slider" min="0" max="4" step="0.05"
-                            value="0.0">
-                    </div>
-
-                    <div class="input-wrapper">
-                        <div>\(\gamma\)</div>
-                        <div id="gamma_sliderAmount" name="gamma_sliderAmount" class="slide-value">1</div>
-                        <input id="gamma_slide" type="range" class="slide" name="tebm_slider" min="0" max="2"
-                            step="0.01" value="1">
-                    </div>
-                    <div class="input-wrapper" style="margin: 0px; vertical-align: top;">
-                        <button type="button" id="add_tebm_graph" class="someBtn">Add</button>
-                        <button type="button" id="tebm_resetbtn" class="someBtn">Reset</button>
-                    </div>
-                </div>
-
+      <div id="tebm_content_wrapper" class="tebm-content-wrapper">
+        <div id="tebm_content" class="tebm-content">
+          <div class="tebm-plot-container">
+            <div
+              id="tebm_all_graphs_container"
+              class="ebm-all-graphs-container"
+            >
+              <canvas id="tempEBMchart_all"></canvas>
             </div>
-        </div>
-    </div> <!-- END SIMPLE TEBM -->
+            <div id="graph-container" class="tebm-graph-container">
+              <canvas id="tempEBMchart"></canvas>
+            </div>
+          </div>
+          <div class="tebm-input-section">
+            <div class="input-wrapper">
+              <div>
+                Latitude(s):
+                <select
+                  name="xlatitudes"
+                  id="xlatitudes-container"
+                  class="selection"
+                  onchange="window.updateTYPlot(this.value)"
+                ></select>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <div>\(D^*\)</div>
+              <div
+                id="D_sliderAmount"
+                name="D_sliderAmount"
+                class="slide-value"
+              >
+                0.6
+              </div>
+              <input
+                id="D_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.6"
+              />
+            </div>
 
-    <div class="between-placeholder" style="height: 100px;"></div>
+            <div class="input-wrapper">
+              <div>\(A\)</div>
+              <div
+                id="A_sliderAmount"
+                name="A_sliderAmount"
+                class="slide-value"
+              >
+                193
+              </div>
+              <input
+                id="A_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="500"
+                step="1"
+                value="193"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(B\)</div>
+              <div
+                id="B_sliderAmount"
+                name="B_sliderAmount"
+                class="slide-value"
+              >
+                2.1
+              </div>
+              <input
+                id="B_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="10"
+                step="0.1"
+                value="2.1"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(cw\)</div>
+              <div
+                id="cw_sliderAmount"
+                name="cw_sliderAmount"
+                class="slide-value"
+              >
+                9.8
+              </div>
+              <input
+                id="cw_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0.1"
+                max="50"
+                step="0.1"
+                value="9.8"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(S_0\)</div>
+              <div
+                id="S0_sliderAmount"
+                name="S0_sliderAmount"
+                class="slide-value"
+              >
+                420
+              </div>
+              <input
+                id="S0_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1000"
+                step="1"
+                value="420"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(S_2\)</div>
+              <div
+                id="S2_sliderAmount"
+                name="S2_sliderAmount"
+                class="slide-value"
+              >
+                240
+              </div>
+              <input
+                id="S2_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1000"
+                step="1"
+                value="240"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(A_0\)</div>
+              <div
+                id="a0_sliderAmount"
+                name="a0_sliderAmount"
+                class="slide-value"
+              >
+                0.7
+              </div>
+              <input
+                id="a0_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.7"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(A_2\)</div>
+              <div
+                id="a2_sliderAmount"
+                name="a2_sliderAmount"
+                class="slide-value"
+              >
+                0.1
+              </div>
+              <input
+                id="a2_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.1"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(\alpha_i\)</div>
+              <div
+                id="ai_sliderAmount"
+                name="ai_sliderAmount"
+                class="slide-value"
+              >
+                0.4
+              </div>
+              <input
+                id="ai_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.4"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(F\)</div>
+              <div
+                id="F_sliderAmount"
+                name="F_sliderAmount"
+                class="slide-value"
+              >
+                0.0
+              </div>
+              <input
+                id="F_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="4"
+                step="0.05"
+                value="0.0"
+              />
+            </div>
+
+            <div class="input-wrapper">
+              <div>\(\gamma\)</div>
+              <div
+                id="gamma_sliderAmount"
+                name="gamma_sliderAmount"
+                class="slide-value"
+              >
+                1
+              </div>
+              <input
+                id="gamma_slide"
+                type="range"
+                class="slide"
+                name="tebm_slider"
+                min="0"
+                max="2"
+                step="0.01"
+                value="1"
+              />
+            </div>
+            <div class="input-wrapper" style="margin: 0px; vertical-align: top">
+              <button type="button" id="add_tebm_graph" class="someBtn">
+                Add
+              </button>
+              <button type="button" id="tebm_resetbtn" class="someBtn">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END SIMPLE TEBM -->
+
+    <div class="between-placeholder" style="height: 100px"></div>
 
     <!--  BEGIN COMPLEX EBM -->
-    <div class="complex-ebm-all" style="width:95%; margin: 0 auto;">
-        <div id="complex_ebm_headline" style="text-align:center;">
-            <h2>Aquaplanet EBM with seasonal cycle</h2>
-        </div>
-        <div id="complex_ebm_introduction">
-            <p class="p_information">
-                "This model is an idealized representation of sea ice and climate with seasonal and latitudinal
-                variations in a global domain. The surface is an aquaplanet with an ocean mixed layer that includes sea
-                ice when conditions are sufficiently cold." <i>(paper p.3; Chapter 2)</i><br>
-                <br>
-                "Horizontal diffusion occurs in a <i>ghost layer</i> with heat capacity \(cg\), all other processes
-                occur in the main layer, and the temperature of the ghost layer is relaxed toward the temperature of the
-                main layer with time scale \(tg\). [...] the ghost layer does not represent a separate physical layer
-                such as the atmosphere, which would add physical complexity to the mode." <i>(paper p.7; Chapter
-                    2.e)</i>
-            </p>
-        </div>
-        <div class="complex-ebm-description" style="width:95%; margin:0 auto; padding:30px;">
-            <table style="margin: 0 auto; width: 100%;">
-                <tr>
-                    <td>Diffusy for heat transport: </td>
-                    <td>\(D^*=Wm^{-2}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>OLR when \(T=T_m\):</td>
-                    <td>\(A=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Coalbedo when there is sea ice:</td>
-                    <td>\(\alpha_i\)</td>
-
-                </tr>
-                <tr>
-                    <td>Insolation at equator:</td>
-                    <td>\(S_0=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>OLR temperature dependence:</td>
-                    <td>\(B=Wm^{-2}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Ghost layer heat capacity:</td>
-                    <td>\(cg=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
-                </tr>
-                <tr>
-                    <td>Insolation seasonal dependence:</td>
-                    <td>\(S^*_1=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Ocean mixed layer heat capacity:</td>
-                    <td>\(cw=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Ghost layer coupling timescale:</td>
-                    <td>\(\tau_g\)</td>
-                </tr>
-                <tr>
-                    <td>Insolation spatial dependence:</td>
-                    <td>\(S_2=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Heat flux from ocean below:</td>
-                    <td>\(F_b=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Duration in years:</td>
-                    <td>\(yr\)</td>
-                </tr>
-                <tr>
-                    <td>Ice-free coalbedo at equator:</td>
-                    <td>\(A_0\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Sea ice latent heat fusion:</td>
-                    <td>\(L_f=W\cdot yr\cdot m^{-3}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>time of coldest \(T\):</td>
-                    <td>\(T_{cold}\)</td>
-                </tr>
-                <tr>
-                    <td>Ice-free coalbedo spatial dependence:</td>
-                    <td>\(A_2\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Sea ice thermal conductivity:</td>
-                    <td>\(K=Wm^{-1}K^{-1}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Time of warmest \(T\):</td>
-                    <td>\(T_{hot}\)</td>
-                </tr>
-                </tr>
-                <tr>
-                    <td>Radiative forcing:</td>
-                    <td>\(F=Wm^{-2}\)</td>
-                    <td>&emsp;&emsp;&emsp;</td>
-                    <td>Gamma:</td>
-                    <td>\(\gamma\)</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- INPUT SECTION -->
-        <div class="complex-ebm-input-section" style="width:95%; margin: 0px auto; text-align: center;">
-            <div class="complex-input-wrapper">
-                \(D^*\):
-                <input id="complex_input_D" type="text" class="complex_ebm_input_field" value="0.6" />
-            </div>
-            <div class="complex-input-wrapper">
-                \(A\):
-                <input id="complex_input_A" type="text" class="complex_ebm_input_field" value="193"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(\alpha_i\):
-                <input id="complex_input_ai" type="text" class="complex_ebm_input_field" value="0.4"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(S_0\):
-                <input id="complex_input_S0" type="text" class="complex_ebm_input_field" value="420"></td>
-            </div>
-
-
-
-            <div class="complex-input-wrapper">
-                \(B\):
-                <input id="complex_input_B" type="text" class="complex_ebm_input_field" value="2.1"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(c_g\):
-                <input id="complex_input_cg" type="text" class="complex_ebm_input_field" value="0.01"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(S^{*}_{1}\):
-                <input id="complex_input_S1" type="text" class="complex_ebm_input_field" value="338"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(c_w\):
-                <input id="complex_input_cw" type="text" class="complex_ebm_input_field" value="9.8"></td>
-            </div>
-
-
-            <div class="complex-input-wrapper">
-                \(\tau_g\):
-                <input id="complex_input_tau" type="text" class="complex_ebm_input_field" value="0.00001"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(S_2\):
-                <input id="complex_input_S2" type="text" class="complex_ebm_input_field" value="240"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(F_b\):
-                <input id="complex_input_Fb" type="text" class="complex_ebm_input_field" value="4"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(yr\):
-                <input id="complex_input_years" type="text" class="complex_ebm_input_field" value="30"></td>
-            </div>
-
-
-
-            <div class="complex-input-wrapper">
-                \(A_0\):
-                <input id="complex_input_a0" type="text" class="complex_ebm_input_field" value="0.7"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(L_f\):
-                <input id="complex_input_Lf" type="text" class="complex_ebm_input_field" value="9.5"></td>
-            </div>
-
-
-            <div class="complex-input-wrapper">
-                \(A_2\):
-                <input id="complex_input_a2" type="text" class="complex_ebm_input_field" value="0.1"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(K\):
-                <input id="complex_input_k" type="text" class="complex_ebm_input_field" value="2"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(T_{hot}\):
-                <input id="complex_input_summer" type="text" class="complex_ebm_input_field" value="76"></td>
-            </div>
-            <div class="complex-input-wrapper">
-                \(T_{cold}\):
-                <input id="complex_input_winter" type="text" class="complex_ebm_input_field" value="26"></td>
-            </div>
-
-            <div>
-                <button type="button" id="complex_ebm_submitbtn" class="someBtn" style="z-index:1">Go</button>
-                <button type="button" id="complex_ebm_resetbtn" class="someBtn" style="z-index:1">Reset</button>
-            </div>
-            <div id="complex_is_Running" style="color:red; display:none; margin-top:20px">please wait...<br>(this may
-                take a few moments)</div>
-        </div>
-
-
-        <div class="placeholder" style="height:55px;"></div>
-        <!-- PLOTTING AREA -->
-        <div id="complex-ebm-plot-container" class="complex-ebm-plot-container" style="display:none;">
-            <div class="complex-contour-plots-wrapper">
-                <div class="complex-contour-plots-wrapper-row">
-                    <div id="complex_ebm_seas_enthalpy_plot" class="complex-contour-plot-container"></div>
-                    <div id="complex_ebm_seas_T_plot" class="complex-contour-plot-container"></div>
-                    <div id="complex_ebm_seas_SeaIce_plot" class="complex-contour-plot-container"></div>
-                </div>
-            </div>
-            <div class="placeholder" style="height:15px;"></div>
-            <div id="complex_ebm_graphs" class="complex-ebm-4graphs-container">
-                <div class="complex-graph-row">
-                    <div class="col-left">
-                        <div id="complex_tsurf_graph_container" class="complex-graph-container">
-                            <canvas id="complex_tsurf_graph"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-right">
-                        <div id="complex_iceThickness_graph_container" class="complex-graph-container">
-                            <canvas id="complex_iceThickness_graph"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="complex-graph-row">
-                    <div class="col-left">
-                        <div id="complex_seasCycleIceThickness_graph_container" class="complex-graph-container">
-                            <canvas id="complex_seasCycleIceThickness_graph"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-right">
-                        <div id="complex_seasCycleIceEdge_graph_container" class="complex-graph-container">
-                            <canvas id="complex_seasCycleIceEdge_graph"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="complex_ebm_placeholder" style="height:50px;"></div>
-        <!-- SOME INFORMATION ABOUT THIS EBM-->
-        <div id="complex-ebm-information">
-            <p class="p_information">
-                With default parameters the seasonal cycle of the equilibrated climate is plotted.<br><br>
-                (a) shows the seasonal cycle of \(E(t, x)\), which fully represents the model state since \(E\) is the
-                only prognostic variable and the forcing varies seasonally.
-                The associated surface temperature (b) and ice thickness (c) are roughly consistent with present- day
-                climate observations in the Northern Hemisphere. <br><br>
-                The red curve in Fig. (a) - (c) indicates the ice edge. The blue line in Fig. \(c\)
-                indicates the time of coldest (winter) and the red line the time of warmest (summer). \(x = 0\)
-                represents the latitude at the equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of
-                incident solar radiation \(S\) that is absorbed and not reflected to space (\(1-\alpha\)).
-                <br>
-                <br>
-            </p>
-            <table style="width: 75%; margin: 0 auto;">
-                <tr>
-                    <td>\(T_m\) -</td>
-                    <td>melting temperature</td>
-                </tr>
-                <tr>
-                    <td>OLR -</td>
-                    <td>outgoing longwave radiation</td>
-                </tr>
-                <tr>
-                    <td>\(S_0\) -</td>
-                    <td>annual mean insolation at the equator</td>
-                </tr>
-                <tr>
-                    <td>\(S^{*}_1\) -</td>
-                    <td>determines the amplitude of seasonal insolation variations (annual frequency: \(\omega = 2\pi
-                        yr^{-1}\) )</td>
-                </tr>
-                <tr>
-                    <td>\(S^{*}_1\) -</td>
-                    <td>determines the equator-to-pole insolation gradient </td>
-                </tr>
-            </table>
-
-            <p class="p_information">
-                <br>
-                NOTE: Cloud cover and water vapor are not included in this idealized sea ice model.
-            </p>
-        </div>
-
-        <script type="module" src="layout_scripts.js"></script>
-    </div> <!-- END COMPLEX EBM -->
-
-
-    <div id="footer" style="text-align:center; margin:0 auto; padding-top: 5rem; font-size: 16px;">
-        <p>
-            Mathematical basics described in <a
-                href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"
-                target="_blank"><i>"How
-                    Climate Model Complexity Influences Sea Ice Stability" (2015)</i></a> by Till J. W. Wagner and Ian
-            Eisenman <br><br>
-            JavaScript implementation with additional variations, and creation of this page by <a
-                href="https://www.b-schwertfeger.de" target="_blank">Benjamin T. Schwertfeger</a> (2021) <br>
-            <a href="https://www.awi.de" target="_blank">Alfred Wegener Institute, Helmholtz Centre for Polar and Marine
-                Research, Bremerhaven, Germany</a>
+    <div class="complex-ebm-all" style="width: 95%; margin: 0 auto">
+      <div id="complex_ebm_headline" style="text-align: center">
+        <h2>Aqua planet EBM with seasonal cycle</h2>
+      </div>
+      <div id="complex_ebm_introduction">
+        <p class="p_information">
+          "This model is an idealized representation of sea ice and climate with
+          seasonal and latitudinal variations in a global domain. The surface is
+          an aqua planet with an ocean mixed layer that includes sea ice when
+          conditions are sufficiently cold." <i>(paper p.3; Chapter 2)</i><br />
+          <br />
+          "Horizontal diffusion occurs in a <i>ghost layer</i> with heat
+          capacity \(cg\), all other processes occur in the main layer, and the
+          temperature of the ghost layer is relaxed toward the temperature of
+          the main layer with time scale \(tg\). [...] the ghost layer does not
+          represent a separate physical layer such as the atmosphere, which
+          would add physical complexity to the mode."
+          <i>(paper p.7; Chapter 2.e)</i>
         </p>
-    </div>
-</body>
+      </div>
+      <div
+        class="complex-ebm-description"
+        style="width: 95%; margin: 0 auto; padding: 30px"
+      >
+        <table style="margin: 0 auto; width: 100%">
+          <tr>
+            <td>Diffusy for heat transport:</td>
+            <td>\(D^*=Wm^{-2}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>OLR when \(T=T_m\):</td>
+            <td>\(A=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Coalbedo when there is sea ice:</td>
+            <td>\(\alpha_i\)</td>
+          </tr>
+          <tr>
+            <td>Insolation at equator:</td>
+            <td>\(S_0=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>OLR temperature dependence:</td>
+            <td>\(B=Wm^{-2}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Ghost layer heat capacity:</td>
+            <td>\(cg=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
+          </tr>
+          <tr>
+            <td>Insolation seasonal dependence:</td>
+            <td>\(S^*_1=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Ocean mixed layer heat capacity:</td>
+            <td>\(cw=W\cdot yr\cdot m^{-2}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Ghost layer coupling timescale:</td>
+            <td>\(\tau_g\)</td>
+          </tr>
+          <tr>
+            <td>Insolation spatial dependence:</td>
+            <td>\(S_2=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Heat flux from ocean below:</td>
+            <td>\(F_b=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Duration in years:</td>
+            <td>\(yr\)</td>
+          </tr>
+          <tr>
+            <td>Ice-free coalbedo at equator:</td>
+            <td>\(A_0\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Sea ice latent heat fusion:</td>
+            <td>\(L_f=W\cdot yr\cdot m^{-3}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>time of coldest \(T\):</td>
+            <td>\(T_{cold}\)</td>
+          </tr>
+          <tr>
+            <td>Ice-free coalbedo spatial dependence:</td>
+            <td>\(A_2\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Sea ice thermal conductivity:</td>
+            <td>\(K=Wm^{-1}K^{-1}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Time of warmest \(T\):</td>
+            <td>\(T_{hot}\)</td>
+          </tr>
+          <tr>
+            <td>Radiative forcing:</td>
+            <td>\(F=Wm^{-2}\)</td>
+            <td>&emsp;&emsp;&emsp;</td>
+            <td>Gamma:</td>
+            <td>\(\gamma\)</td>
+          </tr>
+        </table>
+      </div>
 
+      <!-- INPUT SECTION -->
+      <div
+        class="complex-ebm-input-section"
+        style="width: 95%; margin: 0px auto; text-align: center"
+      >
+        <div class="complex-input-wrapper">
+          \(D^*\):
+          <input
+            id="complex_input_D"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.6"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(A\):
+          <input
+            id="complex_input_A"
+            type="text"
+            class="complex_ebm_input_field"
+            value="193"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(\alpha_i\):
+          <input
+            id="complex_input_ai"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.4"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(S_0\):
+          <input
+            id="complex_input_S0"
+            type="text"
+            class="complex_ebm_input_field"
+            value="420"
+          />
+        </div>
+
+        <div class="complex-input-wrapper">
+          \(B\):
+          <input
+            id="complex_input_B"
+            type="text"
+            class="complex_ebm_input_field"
+            value="2.1"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(c_g\):
+          <input
+            id="complex_input_cg"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.01"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(S^{*}_{1}\):
+          <input
+            id="complex_input_S1"
+            type="text"
+            class="complex_ebm_input_field"
+            value="338"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(c_w\):
+          <input
+            id="complex_input_cw"
+            type="text"
+            class="complex_ebm_input_field"
+            value="9.8"
+          />
+        </div>
+
+        <div class="complex-input-wrapper">
+          \(\tau_g\):
+          <input
+            id="complex_input_tau"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.00001"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(S_2\):
+          <input
+            id="complex_input_S2"
+            type="text"
+            class="complex_ebm_input_field"
+            value="240"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(F_b\):
+          <input
+            id="complex_input_Fb"
+            type="text"
+            class="complex_ebm_input_field"
+            value="4"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(yr\):
+          <input
+            id="complex_input_years"
+            type="text"
+            class="complex_ebm_input_field"
+            value="30"
+          />
+        </div>
+
+        <div class="complex-input-wrapper">
+          \(A_0\):
+          <input
+            id="complex_input_a0"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.7"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(L_f\):
+          <input
+            id="complex_input_Lf"
+            type="text"
+            class="complex_ebm_input_field"
+            value="9.5"
+          />
+        </div>
+
+        <div class="complex-input-wrapper">
+          \(A_2\):
+          <input
+            id="complex_input_a2"
+            type="text"
+            class="complex_ebm_input_field"
+            value="0.1"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(K\):
+          <input
+            id="complex_input_k"
+            type="text"
+            class="complex_ebm_input_field"
+            value="2"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(T_{hot}\):
+          <input
+            id="complex_input_summer"
+            type="text"
+            class="complex_ebm_input_field"
+            value="76"
+          />
+        </div>
+        <div class="complex-input-wrapper">
+          \(T_{cold}\):
+          <input
+            id="complex_input_winter"
+            type="text"
+            class="complex_ebm_input_field"
+            value="26"
+          />
+        </div>
+
+        <div>
+          <button
+            type="button"
+            id="complex_ebm_submitbtn"
+            class="someBtn"
+            style="z-index: 1"
+          >
+            Go
+          </button>
+          <button
+            type="button"
+            id="complex_ebm_resetbtn"
+            class="someBtn"
+            style="z-index: 1"
+          >
+            Reset
+          </button>
+        </div>
+        <div
+          id="complex_is_Running"
+          style="color: red; display: none; margin-top: 20px"
+        >
+          please wait...<br />(this may take a few moments)
+        </div>
+      </div>
+
+      <div class="placeholder" style="height: 55px"></div>
+      <!-- PLOTTING AREA -->
+      <div
+        id="complex-ebm-plot-container"
+        class="complex-ebm-plot-container"
+        style="display: none"
+      >
+        <div class="complex-contour-plots-wrapper">
+          <div class="complex-contour-plots-wrapper-row">
+            <div
+              id="complex_ebm_seas_enthalpy_plot"
+              class="complex-contour-plot-container"
+            ></div>
+            <div
+              id="complex_ebm_seas_T_plot"
+              class="complex-contour-plot-container"
+            ></div>
+            <div
+              id="complex_ebm_seas_SeaIce_plot"
+              class="complex-contour-plot-container"
+            ></div>
+          </div>
+        </div>
+        <div class="placeholder" style="height: 15px"></div>
+        <div id="complex_ebm_graphs" class="complex-ebm-4graphs-container">
+          <div class="complex-graph-row">
+            <div class="col-left">
+              <div
+                id="complex_tsurf_graph_container"
+                class="complex-graph-container"
+              >
+                <canvas id="complex_tsurf_graph"></canvas>
+              </div>
+            </div>
+            <div class="col-right">
+              <div
+                id="complex_iceThickness_graph_container"
+                class="complex-graph-container"
+              >
+                <canvas id="complex_iceThickness_graph"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="complex-graph-row">
+            <div class="col-left">
+              <div
+                id="complex_seasCycleIceThickness_graph_container"
+                class="complex-graph-container"
+              >
+                <canvas id="complex_seasCycleIceThickness_graph"></canvas>
+              </div>
+            </div>
+            <div class="col-right">
+              <div
+                id="complex_seasCycleIceEdge_graph_container"
+                class="complex-graph-container"
+              >
+                <canvas id="complex_seasCycleIceEdge_graph"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="complex_ebm_placeholder" style="height: 50px"></div>
+      <!-- SOME INFORMATION ABOUT THIS EBM-->
+      <div id="complex-ebm-information">
+        <p class="p_information">
+          With default parameters the seasonal cycle of the equilibrated climate
+          is plotted.<br /><br />
+          (a) shows the seasonal cycle of \(E(t, x)\), which fully represents
+          the model state since \(E\) is the only prognostic variable and the
+          forcing varies seasonally. The associated surface temperature (b) and
+          ice thickness (c) are roughly consistent with present- day climate
+          observations in the Northern Hemisphere. <br /><br />
+          The red curve in Fig. (a) - (c) indicates the ice edge. The blue line
+          in Fig. \(c\) indicates the time of coldest (winter) and the red line
+          the time of warmest (summer). \(x = 0\) represents the latitude at the
+          equator and \(x = 1\) at the North Pole. Coalbedo is the fraction of
+          incident solar radiation \(S\) that is absorbed and not reflected to
+          space (\(1-\alpha\)).
+          <br />
+          <br />
+        </p>
+        <table style="width: 75%; margin: 0 auto">
+          <tr>
+            <td>\(T_m\) -</td>
+            <td>melting temperature</td>
+          </tr>
+          <tr>
+            <td>OLR -</td>
+            <td>outgoing longwave radiation</td>
+          </tr>
+          <tr>
+            <td>\(S_0\) -</td>
+            <td>annual mean insolation at the equator</td>
+          </tr>
+          <tr>
+            <td>\(S^{*}_1\) -</td>
+            <td>
+              determines the amplitude of seasonal insolation variations (annual
+              frequency: \(\omega = 2\pi yr^{-1}\) )
+            </td>
+          </tr>
+          <tr>
+            <td>\(S^{*}_1\) -</td>
+            <td>determines the equator-to-pole insolation gradient</td>
+          </tr>
+        </table>
+
+        <p class="p_information">
+          <br />
+          NOTE: Cloud cover and water vapor are not included in this idealized
+          sea ice model.
+        </p>
+      </div>
+
+      <script type="module" src="js/layout_scripts.js"></script>
+    </div>
+    <!-- END COMPLEX EBM -->
+
+    <div
+      id="footer"
+      style="
+        text-align: center;
+        margin: 0 auto;
+        padding-top: 5rem;
+        font-size: 16px;
+      "
+    >
+      <p>
+        Mathematical basics described in
+        <a
+          href="https://www.researchgate.net/publication/276276426_How_Climate_Model_Complexity_Influences_Sea_Ice_Stability"
+          target="_blank"
+          ><i
+            >"How Climate Model Complexity Influences Sea Ice Stability"
+            (2015)</i
+          ></a
+        >
+        by Till J. W. Wagner and Ian Eisenman <br /><br />
+        JavaScript implementation with additional variations, and creation of
+        this page by
+        <a href="https://www.b-schwertfeger.de" target="_blank"
+          >Benjamin T. Schwertfeger</a
+        >
+        (2021) <br />
+        <a href="https://www.awi.de" target="_blank"
+          >Alfred Wegener Institute, Helmholtz Centre for Polar and Marine
+          Research, Bremerhaven, Germany</a
+        >
+      </p>
+    </div>
+  </body>
 </html>
