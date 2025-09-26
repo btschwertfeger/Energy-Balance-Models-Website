@@ -6,7 +6,7 @@
 -->
 
 // ************
-// This will be in main_bundle.js (->watchify main.js -o main_bundle.js)
+// This will be in main_bundle.js (->browserify main.js -o main_bundle.js)
 // ************
 */
 
