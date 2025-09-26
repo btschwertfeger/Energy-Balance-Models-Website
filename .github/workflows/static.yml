@@ -44,7 +44,7 @@ jobs:
       - name: Install project dependencies
         run: npm install
       - name: Bundle main.js with browserify
-        run: browserify js/main.js -o main_bundle.js
+        run: browserify js/main.js -o js/main_bundle.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
