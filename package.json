@@ -9,6 +9,6 @@
   "author": "Benjamin Thomas Schwertfeger",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^9.4.2"
+    "mathjs": "^15.2.0"
   }
 }
