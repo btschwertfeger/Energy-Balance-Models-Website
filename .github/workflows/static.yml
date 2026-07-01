@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Install browserify
@@ -46,7 +46,7 @@ jobs:
       - name: Bundle main.js with browserify
         run: browserify js/main.js -o js/main_bundle.js
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           # Upload entire repository
           path: "."
